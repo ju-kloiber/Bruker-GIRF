@@ -1,0 +1,1361 @@
+label list:
+line no.  pc   label
+     732 0xffffffff decr
+     737 0xffffffff start
+     738 0xffffffff acc
+     854 0xffffffff slice
+    1038 0xffffffff echo1
+    1039 0xffffffff echo
+
+pulse program: "/opt/PV6.0.1/data/mri/20260107_110138_UBC_FirstCheck_1_1/233/pulseprogram"
+================
+dur0 == line 0
+fixdel(10.000000 usec) setNmr5: 0x80 setNmr6: 0xc 
+
+dur1 == line 0
+fixdel(1000.000000 usec) clrNmr1: 0x400000 
+
+'RARE.ppg': line   1--->;****************************************************************
+'RARE.ppg': line   2--->;
+'RARE.ppg': line   3--->; Copyright (c) 2002
+'RARE.ppg': line   4--->; Bruker BioSpin MRI GmbH
+'RARE.ppg': line   5--->; D-76275 Ettlingen, Germany
+'RARE.ppg': line   6--->;
+'RARE.ppg': line   7--->; All Rights Reserved
+'RARE.ppg': line   8--->;
+'RARE.ppg': line   9--->; a RARE imaging experiment
+'RARE.ppg': line  10--->;
+'RARE.ppg': line  11--->;****************************************************************
+'RARE.ppg': line  12--->;
+'RARE.ppg': line  13--->;
+'RARE.ppg': line  14--->
+'MRI.include': line   1--->;****************************************************************
+'MRI.include': line   2--->;
+'MRI.include': line   3--->; $Source: /pv/CvsTree/pv/gen/src/prg/methManag/PPG/Attic/MRI.include,v $
+'MRI.include': line   4--->;
+'MRI.include': line   5--->; Copyright (c) 2006
+'MRI.include': line   6--->; Bruker BioSpin MRI GmbH
+'MRI.include': line   7--->; D-76275 Ettlingen, Germany
+'MRI.include': line   8--->;
+'MRI.include': line   9--->; All Rights Reserved
+'MRI.include': line  10--->;
+'MRI.include': line  11--->;;****************************************************************
+'MRI.include': line  12--->;MRI.include
+'MRI.include': line  13--->
+'Avance.incl': line   1--->;Avance3aqs.incl
+'Avance.incl': line   2--->;   for AV III with AQS IPSO
+'Avance.incl': line   3--->;
+'Avance.incl': line   4--->;avance-version (13/06/17)
+'Avance.incl': line   5--->;
+'Avance.incl': line   6--->;$CLASS=HighRes Incl
+'Avance.incl': line   7--->;$COMMENT=
+'Avance.incl': line 170--->;$Id: Avance3aqs.incl,v 1.1.6.3 2015/03/05 16:37:14 uhei Exp $
+'MRI.include': line  14--->
+'MRI.include': line  15--->define delay aqq
+'MRI.include': line  16--->define delay deparx
+'MRI.include': line  17--->define delay derxadc
+'MRI.include': line  18--->define delay rdepa
+'MRI.include': line  19--->
+'MRI.include': line  21--->"aqq=dw*td"
+'MRI.include': line  22--->"rdepa=de-depa"
+'MRI.include': line  23--->"deparx=depa-derx"
+'MRI.include': line  24--->"derxadc=derx-deadc"
+'MRI.include': line  25--->
+'MRI.include': line  26--->
+'MRI.include': line  27--->; contents of De2.incl - usage for different hardware versions to 
+'MRI.include': line  28--->; be checked - intermediate solution to support Jobs
+'MRI.include': line  29--->define delay rde1
+'MRI.include': line  31--->"rde1=de-de1"
+'MRI.include': line  32--->
+'MRI.include': line  33--->
+'MRI.include': line  44--->; end of contents of De2.incl
+'MRI.include': line  45--->
+'MRI.include': line  46--->
+'MRI.include': line  65--->	
+'MRI.include': line  66--->	
+'MRI.include': line  67--->
+'MRI.include': line  68--->
+'MRI.include': line  74--->	
+'MRI.include': line  75--->
+'MRI.include': line  76--->
+'MRI.include': line 129--->   
+'MRI.include': line 130--->
+'MRI.include': line 131--->
+'MRI.include': line 141--->	
+'MRI.include': line 142--->
+'MRI.include': line 143--->
+'RARE.ppg': line  15--->
+'RARE.ppg': line  16--->preset off
+'RARE.ppg': line  17--->
+'RARE.ppg': line  18--->define delay denab
+'RARE.ppg': line  19--->"denab = d3 - de"
+'RARE.ppg': line  21--->define delay d5m40u
+'RARE.ppg': line  22--->"d5m40u = d5 - 40u"
+'RARE.ppg': line  23--->
+'RARE.ppg': line  24--->
+'RARE.ppg': line  25--->define loopcounter lc1
+'RARE.ppg': line  26--->"lc1 = ds"
+'PrepModulesHead.mod': line   1--->;****************************************************************
+'PrepModulesHead.mod': line   2--->;
+'PrepModulesHead.mod': line   3--->; Copyright (c) 2003-2007
+'PrepModulesHead.mod': line   4--->; Bruker BioSpin MRI GmbH
+'PrepModulesHead.mod': line   5--->; D-76275 Ettlingen, Germany
+'PrepModulesHead.mod': line   6--->;
+'PrepModulesHead.mod': line   7--->; $Id: PrepModulesHead.mod,v 1.19 2012/01/20 10:19:48 wemch Exp $
+'PrepModulesHead.mod': line   8--->;
+'PrepModulesHead.mod': line   9--->; All Rights Reserved
+'PrepModulesHead.mod': line  10--->;
+'PrepModulesHead.mod': line  11--->; Declaration of pulseprogram parameters and subroutines for 
+'PrepModulesHead.mod': line  12--->; preparation  modules
+'PrepModulesHead.mod': line  13--->;
+'PrepModulesHead.mod': line  14--->; Must be included after MRI.include!
+'PrepModulesHead.mod': line  15--->;
+'PrepModulesHead.mod': line  16--->;****************************************************************
+'PrepModulesHead.mod': line  17--->
+'PrepModulesHead.mod': line  18--->;**** Fat Suppression ****
+'PrepModulesHead.mod': line  19--->
+'FatSupDef.mod': line   1--->;****************************************************************
+'FatSupDef.mod': line   2--->;
+'FatSupDef.mod': line   3--->; Copyright (c) 2002-2007
+'FatSupDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'FatSupDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'FatSupDef.mod': line   6--->;
+'FatSupDef.mod': line   7--->; $Id: FatSupDef.mod,v 1.7 2013/07/05 14:15:26 sako Exp $
+'FatSupDef.mod': line   8--->;
+'FatSupDef.mod': line   9--->; All Rights Reserved
+'FatSupDef.mod': line  10--->;
+'FatSupDef.mod': line  11--->; FatSupDef.mod : Declaration of Fat Suppression Subroutine
+'FatSupDef.mod': line  12--->;
+'FatSupDef.mod': line  13--->;****************************************************************
+'FatSupDef.mod': line  15--->if (PVM_FatSupPerform == Yes)
+'FatSupDef.mod': line  16--->{
+'FatSupDef.mod': line  17--->  define pulse           fatSupPul   = {$PVM_FatSupRfLength}
+'FatSupDef.mod': line  18--->  define list<frequency> fatSupList  = {$PVM_FatSupFL}
+'FatSupDef.mod': line  19--->  
+'FatSupDef.mod': line  20--->  define delay fatSupRamp  = {$PVM_FatSupRampTime}
+'FatSupDef.mod': line  21--->  define delay fatSupAmp   = {$PVM_FatSupAmpEnable}
+'FatSupDef.mod': line  22--->  define delay fatSupGrad  = {$PVM_FatSupGradWait}
+'FatSupDef.mod': line  23--->  define delay fatSupSpoil = {$PVM_FatSupSpoilDur}
+'FatSupDef.mod': line  24--->
+'FatSupDef.mod': line  25--->  ; convert from ms to s
+'FatSupDef.mod': line  26--->  "fatSupRamp  = fatSupRamp  / 1000"
+'FatSupDef.mod': line  27--->  "fatSupAmp   = fatSupAmp   / 1000"
+'FatSupDef.mod': line  28--->  "fatSupGrad  = fatSupGrad  / 1000"
+'FatSupDef.mod': line  29--->  "fatSupSpoil = fatSupSpoil / 1000"
+'FatSupDef.mod': line  30--->}
+'FatSupDef.mod': line  31--->
+'FatSupDef.mod': line  32--->subroutine FatSup
+'PrepModulesHead.mod': line  20--->
+'PrepModulesHead.mod': line  21--->
+'PrepModulesHead.mod': line  22--->;**** Flow Saturation ****
+'FlowSatDef.mod': line   1--->;****************************************************************
+'FlowSatDef.mod': line   2--->;
+'FlowSatDef.mod': line   3--->; Copyright (c) 2005-2007
+'FlowSatDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'FlowSatDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'FlowSatDef.mod': line   6--->;
+'FlowSatDef.mod': line   7--->; $Id: FlowSatDef.mod,v 1.7 2013/06/04 10:11:30 sako Exp $
+'FlowSatDef.mod': line   8--->;
+'FlowSatDef.mod': line   9--->; All Rights Reserved
+'FlowSatDef.mod': line  10--->;
+'FlowSatDef.mod': line  11--->; FlowSatDef.mod: Declaration of subroutines for Flow Saturation 
+'FlowSatDef.mod': line  12--->; call
+'FlowSatDef.mod': line  13--->; subr FlowSat()
+'FlowSatDef.mod': line  14--->; subr FlowSatInit()
+'FlowSatDef.mod': line  15--->; subr FlowSatInc()
+'FlowSatDef.mod': line  16--->; 
+'FlowSatDef.mod': line  17--->;****************************************************************
+'FlowSatDef.mod': line  18--->
+'FlowSatDef.mod': line  19--->if(PVM_InFlowSatOnOff == 1)
+'FlowSatDef.mod': line  20--->{
+'FlowSatDef.mod': line  21--->define list<frequency> modlis4 = {$PVM_InFlowSatFL}
+'FlowSatDef.mod': line  22--->define list<grad_scalar> flowSatGrad={$PVM_InFlowSatGrad}
+'FlowSatDef.mod': line  23--->define delay SfD0 = {$PVM_SfD0}
+'FlowSatDef.mod': line  24--->define delay SfD1 = {$PVM_SfD1}
+'FlowSatDef.mod': line  25--->define delay SfD2 = {$PVM_SfD2}
+'FlowSatDef.mod': line  26--->
+'FlowSatDef.mod': line  27--->define pulse SfP0 = {$PVM_SfP0}
+'FlowSatDef.mod': line  28--->define loopcounter SfLp0 = {$PVM_SfLp0}
+'FlowSatDef.mod': line  29--->}
+'FlowSatDef.mod': line  30--->subroutine FlowSat
+'FlowSatDef.mod': line  31--->subroutine FlowSatInc
+'FlowSatDef.mod': line  32--->subroutine FlowSatInit
+'PrepModulesHead.mod': line  24--->
+'PrepModulesHead.mod': line  25--->
+'PrepModulesHead.mod': line  26--->;**** Inversion Pulse ****
+'InvPulseDef.mod': line   1--->;****************************************************************
+'InvPulseDef.mod': line   2--->;
+'InvPulseDef.mod': line   3--->; Copyright (c) 2002-2007
+'InvPulseDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'InvPulseDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'InvPulseDef.mod': line   6--->;
+'InvPulseDef.mod': line   7--->; $Id: InvPulseDef.mod,v 1.2 2010/12/15 10:52:31 mah Exp $
+'InvPulseDef.mod': line   8--->;
+'InvPulseDef.mod': line   9--->; All Rights Reserved
+'InvPulseDef.mod': line  10--->;
+'InvPulseDef.mod': line  11--->; InvPulseDef.mod : Declaration of Inversion Pulse subroutine
+'InvPulseDef.mod': line  12--->;
+'InvPulseDef.mod': line  13--->; call
+'InvPulseDef.mod': line  14--->; subr InvPulse()
+'InvPulseDef.mod': line  15--->;
+'InvPulseDef.mod': line  16--->;****************************************************************
+'InvPulseDef.mod': line  17--->;   
+'InvPulseDef.mod': line  18--->;       PVM_InvRFPulseArr      :  
+'InvPulseDef.mod': line  19--->;     
+'InvPulseDef.mod': line  20--->;       sp22            TPQQ[14].name : PVM_InvRFPulsePropertyArr[0].Filename
+'InvPulseDef.mod': line  21--->;
+'InvPulseDef.mod': line  22--->;       PVM_IpP0                      :  PVM_InvRFPulseArr[0].PulseLength
+'InvPulseDef.mod': line  23--->;
+'InvPulseDef.mod': line  24--->;       PVM_IpD2                      :  PVM_InvPulseDelay[0]
+'InvPulseDef.mod': line  25--->;       PVM_IpD3                      :  PVM_InvPulseSpoilTime[0]
+'InvPulseDef.mod': line  26--->;       PVM_IpD1                      :  CONFIG_amplifier _enable
+'InvPulseDef.mod': line  27--->;       PVM_IpD0                      :  PVM_RampTime
+'InvPulseDef.mod': line  28--->;
+'InvPulseDef.mod': line  29--->
+'InvPulseDef.mod': line  30--->if(PVM_InvPulseOnOff == 1)
+'InvPulseDef.mod': line  31--->{
+'InvPulseDef.mod': line  32--->define list<frequency>  modlis2= {$PVM_InvPulseOffsetHz}
+'InvPulseDef.mod': line  33--->define delay IpD0 = {$PVM_IpD0}
+'InvPulseDef.mod': line  34--->define delay IpD1 = {$PVM_IpD1}
+'InvPulseDef.mod': line  35--->define delay IpD2 = {$PVM_IpD2}
+'InvPulseDef.mod': line  36--->define delay IpD3 = {$PVM_IpD3}
+'InvPulseDef.mod': line  37--->
+'InvPulseDef.mod': line  38--->define pulse IpP0 = {$PVM_IpP0}
+'InvPulseDef.mod': line  39--->}
+'InvPulseDef.mod': line  40--->subroutine InvPulse
+'PrepModulesHead.mod': line  28--->
+'PrepModulesHead.mod': line  29--->
+'PrepModulesHead.mod': line  30--->;**** Magnetisation Transfer ****
+'MagTransDef.mod': line   1--->;****************************************************************
+'MagTransDef.mod': line   2--->; $Source: /pv/CvsTree/pv/gen/src/prg/methManag/PPG/Attic/MagTransDef.mod,v $
+'MagTransDef.mod': line   3--->;
+'MagTransDef.mod': line   4--->; Copyright (c) 2005-2007
+'MagTransDef.mod': line   5--->; Bruker BioSpin MRI GmbH
+'MagTransDef.mod': line   6--->; D-76275 Ettlingen, Germany
+'MagTransDef.mod': line   7--->;
+'MagTransDef.mod': line   8--->; All Rights Reserved
+'MagTransDef.mod': line   9--->;
+'MagTransDef.mod': line  10--->; MagTransDef.mod: Declaration of subroutine for Magnetization 
+'MagTransDef.mod': line  11--->;                  transfer 
+'MagTransDef.mod': line  12--->; call
+'MagTransDef.mod': line  13--->; subr MagTrans()
+'MagTransDef.mod': line  14--->;
+'MagTransDef.mod': line  15--->; $Id: MagTransDef.mod,v 1.6.2.1 2015/03/24 14:30:00 sako Exp $
+'MagTransDef.mod': line  16--->;****************************************************************
+'MagTransDef.mod': line  17--->;**** Magnetisation Transfer Module ****
+'MagTransDef.mod': line  18--->
+'MagTransDef.mod': line  19--->
+'MagTransDef.mod': line  20--->if(PVM_MagTransOnOff)
+'MagTransDef.mod': line  21--->{
+'MagTransDef.mod': line  22--->define list<frequency> modlis3 = {$PVM_MagTransFL} 
+'MagTransDef.mod': line  23--->define delay MtD0 = {$PVM_MtD0}
+'MagTransDef.mod': line  24--->define delay MtD1 = {$PVM_MtD1}
+'MagTransDef.mod': line  25--->define delay MtD2 = {$PVM_MtD2}
+'MagTransDef.mod': line  26--->define delay MtD3 = {$PVM_MtD3}
+'MagTransDef.mod': line  28--->define pulse MtP0 = {$PVM_MtP0}
+'MagTransDef.mod': line  29--->
+'MagTransDef.mod': line  30--->define loopcounter MtLp0 = {$PVM_MtLp0}
+'MagTransDef.mod': line  31--->}
+'MagTransDef.mod': line  32--->
+'MagTransDef.mod': line  33--->subroutine MagTrans
+'PrepModulesHead.mod': line  32--->
+'PrepModulesHead.mod': line  33--->
+'PrepModulesHead.mod': line  34--->;**** Saturation Pulse ****
+'SatPulseDef.mod': line   1--->;****************************************************************
+'SatPulseDef.mod': line   2--->;
+'SatPulseDef.mod': line   3--->; Copyright (c) 2002-2003
+'SatPulseDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'SatPulseDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'SatPulseDef.mod': line   6--->;
+'SatPulseDef.mod': line   7--->; $Id: SatPulseDef.mod,v 1.3 2010/12/15 10:52:31 mah Exp $
+'SatPulseDef.mod': line   8--->;
+'SatPulseDef.mod': line   9--->; All Rights Reserved
+'SatPulseDef.mod': line  10--->;
+'SatPulseDef.mod': line  11--->; SatPulseDef.mod : Declaration of Saturation Pulse subroutines
+'SatPulseDef.mod': line  12--->; call 
+'SatPulseDef.mod': line  13--->; subr SatPulse()
+'SatPulseDef.mod': line  14--->;
+'SatPulseDef.mod': line  15--->;****************************************************************
+'SatPulseDef.mod': line  16--->;   
+'SatPulseDef.mod': line  17--->;    PVM_SatRFPulseArr      :  
+'SatPulseDef.mod': line  18--->;     
+'SatPulseDef.mod': line  19--->;       sp28            DPQQ[12].name : PVM_SatRFPulsePropertyArr[0].Filename
+'SatPulseDef.mod': line  20--->;       sp29            DPQQ[13].name : PVM_SatRFPulsePropertyArr[1].Filename
+'SatPulseDef.mod': line  21--->;       sp30            DPQQ[14].name : PVM_SatRFPulsePropertyArr[2].Filename
+'SatPulseDef.mod': line  22--->;       sp31            DPQQ[15].name : PVM_SatRFPulsePropertyArr[3].Filename
+'SatPulseDef.mod': line  23--->;
+'SatPulseDef.mod': line  24--->;       PVM_SpP0                     :  PVM_SatRFPulseArr[0].PulseLength
+'SatPulseDef.mod': line  25--->;       PVM_SpP1                     :  PVM_SatRFPulseArr[1].PulseLength
+'SatPulseDef.mod': line  26--->;       PVM_SpP2                     :  PVM_SatRFPulseArr[2].PulseLength
+'SatPulseDef.mod': line  27--->;       PVM_SpP3                     :  PVM_SatRFPulseArr[3].PulseLength
+'SatPulseDef.mod': line  28--->;
+'SatPulseDef.mod': line  29--->;       PVM_SpD2                     :  PVM_SatPulseDelay1[0]
+'SatPulseDef.mod': line  30--->;       PVM_SpD6                     :  PVM_SatPulseSpoilTime[0]
+'SatPulseDef.mod': line  31--->;       PVM_SpD10                    :  PVM_SatPulseDelay2[0]
+'SatPulseDef.mod': line  32--->;       PVM_SpD3                     :  PVM_SatPulseSpoilTime[1]
+'SatPulseDef.mod': line  33--->;       PVM_SpD7                     :  PVM_SatPulseDelay1[1]
+'SatPulseDef.mod': line  34--->;       PVM_SpD11                    :  PVM_SatPulseDelay2[1]
+'SatPulseDef.mod': line  35--->;       PVM_SpD4                     :  PVM_SatPulseDelay1[2]
+'SatPulseDef.mod': line  36--->;       PVM_SpD8                     :  PVM_SatPulseSpoilTime[2]
+'SatPulseDef.mod': line  37--->;       PVM_SpD12                    :  PVM_SatPulseDelay2[2]
+'SatPulseDef.mod': line  38--->;       PVM_SpD5                     :  PVM_SatPulseDelay1[3]
+'SatPulseDef.mod': line  39--->;       PVM_SpD9                     :  PVM_SatPulseSpoilTime[3]
+'SatPulseDef.mod': line  40--->;       PVM_SpD13                    :  PVM_SatPulseDelay2[3]
+'SatPulseDef.mod': line  41--->;
+'SatPulseDef.mod': line  42--->
+'SatPulseDef.mod': line  43--->if(PVM_SatPulseOnOff == 1)
+'SatPulseDef.mod': line  44--->   {
+'SatPulseDef.mod': line  45--->define list<frequency> modlis7 = {$PVM_SatPulseOffsetHz}
+'SatPulseDef.mod': line  46--->
+'SatPulseDef.mod': line  47--->define delay SpD0 = {$PVM_SpD0}
+'SatPulseDef.mod': line  48--->define delay SpD1 = {$PVM_SpD1}
+'SatPulseDef.mod': line  49--->define delay SpD2 = {$PVM_SpD2}
+'SatPulseDef.mod': line  50--->define delay SpD3 = {$PVM_SpD3}
+'SatPulseDef.mod': line  51--->define delay SpD4 = {$PVM_SpD4}
+'SatPulseDef.mod': line  52--->define delay SpD5 = {$PVM_SpD5}
+'SatPulseDef.mod': line  53--->define delay SpD6 = {$PVM_SpD6}
+'SatPulseDef.mod': line  54--->define delay SpD7 = {$PVM_SpD7}
+'SatPulseDef.mod': line  55--->define delay SpD8 = {$PVM_SpD8}
+'SatPulseDef.mod': line  56--->define delay SpD9 = {$PVM_SpD9}
+'SatPulseDef.mod': line  57--->define delay SpD10 = {$PVM_SpD10}
+'SatPulseDef.mod': line  58--->define delay SpD11 = {$PVM_SpD11}
+'SatPulseDef.mod': line  59--->define delay SpD12 = {$PVM_SpD12}
+'SatPulseDef.mod': line  60--->define delay SpD13 = {$PVM_SpD13}
+'SatPulseDef.mod': line  61--->define pulse SpP0 = {$PVM_SpP0}
+'SatPulseDef.mod': line  62--->define pulse SpP1 = {$PVM_SpP1}
+'SatPulseDef.mod': line  63--->define pulse SpP2 = {$PVM_SpP2}
+'SatPulseDef.mod': line  64--->define pulse SpP3 = {$PVM_SpP3}
+'SatPulseDef.mod': line  66--->   }
+'SatPulseDef.mod': line  67--->
+'SatPulseDef.mod': line  68--->
+'SatPulseDef.mod': line  69--->subroutine SatPulse
+'PrepModulesHead.mod': line  36--->
+'PrepModulesHead.mod': line  37--->
+'PrepModulesHead.mod': line  38--->;*** FOV Saturation ***
+'FovSatDef.mod': line   1--->;****************************************************************
+'FovSatDef.mod': line   2--->;
+'FovSatDef.mod': line   3--->; Copyright (c) 2002-2007
+'FovSatDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'FovSatDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'FovSatDef.mod': line   6--->;
+'FovSatDef.mod': line   7--->; $Id: FovSatDef.mod,v 1.8 2013/08/06 08:09:43 sako Exp $
+'FovSatDef.mod': line   8--->;
+'FovSatDef.mod': line   9--->; All Rights Reserved
+'FovSatDef.mod': line  10--->;
+'FovSatDef.mod': line  11--->; FovSat.mod : Declaration of FOV Saturation subroutine
+'FovSatDef.mod': line  12--->; call: subr FovSat()
+'FovSatDef.mod': line  13--->;
+'FovSatDef.mod': line  14--->;****************************************************************
+'FovSatDef.mod': line  15--->
+'FovSatDef.mod': line  16--->
+'FovSatDef.mod': line  17--->if (PVM_FovSatOnOff == On)
+'FovSatDef.mod': line  18--->{
+'FovSatDef.mod': line  19--->  define pulse           fovSatPul   = {$PVM_FovSatRfLength}
+'FovSatDef.mod': line  20--->  define list<frequency> fovSatList  = {$PVM_FovSatFL}
+'FovSatDef.mod': line  21--->  
+'FovSatDef.mod': line  22--->  define delay fovSatRamp  = {$PVM_FovSatRampTime}
+'FovSatDef.mod': line  23--->  define delay fovSatAmp   = {$PVM_FovSatAmpEnable}
+'FovSatDef.mod': line  24--->  define delay fovSatGrad  = {$PVM_FovSatGradWait}
+'FovSatDef.mod': line  25--->  define delay fovSatSpoil = {$PVM_FovSatSpoilDur}
+'FovSatDef.mod': line  27--->  ; convert from ms to s
+'FovSatDef.mod': line  28--->  "fovSatRamp  = fovSatRamp  / 1000"
+'FovSatDef.mod': line  29--->  "fovSatAmp   = fovSatAmp   / 1000"
+'FovSatDef.mod': line  30--->  "fovSatGrad  = fovSatGrad  / 1000"
+'FovSatDef.mod': line  31--->  "fovSatSpoil = fovSatSpoil / 1000"  
+'FovSatDef.mod': line  32--->}
+'FovSatDef.mod': line  33--->
+'FovSatDef.mod': line  34--->subroutine FovSat
+'FovSatDef.mod': line  35--->
+'FovSatDef.mod': line  53--->; backwards compatibility
+'FovSatDef.mod': line  54--->subroutine SatSlices
+'FovSatDef.mod': line  55--->
+'FovSatDef.mod': line  56--->
+'PrepModulesHead.mod': line  40--->
+'PrepModulesHead.mod': line  41--->
+'PrepModulesHead.mod': line  42--->;**** Black Blood ****
+'BlBloodDef.mod': line   1--->;****************************************************************
+'BlBloodDef.mod': line   2--->;
+'BlBloodDef.mod': line   3--->; Copyright (c) 2007
+'BlBloodDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'BlBloodDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'BlBloodDef.mod': line   6--->;
+'BlBloodDef.mod': line   7--->; $Id: BlBloodDef.mod,v 1.4 2013/06/04 10:11:30 sako Exp $
+'BlBloodDef.mod': line   8--->;
+'BlBloodDef.mod': line   9--->; All Rights Reserved
+'BlBloodDef.mod': line  10--->;
+'BlBloodDef.mod': line  11--->; BlBloodDef.mod : Declaration of Black blood  subroutine
+'BlBloodDef.mod': line  12--->;
+'BlBloodDef.mod': line  13--->; call
+'BlBloodDef.mod': line  14--->; subr BlBlood(ph0) : Black blood preparation with RF phaselist
+'BlBloodDef.mod': line  15--->;                     ph0
+'BlBloodDef.mod': line  16--->;
+'BlBloodDef.mod': line  17--->;****************************************************************
+'BlBloodDef.mod': line  18--->
+'BlBloodDef.mod': line  19--->if(PVM_BlBloodOnOff)
+'BlBloodDef.mod': line  20--->{
+'BlBloodDef.mod': line  21--->define list<frequency> modlis8 = {$PVM_BlBloodFL}
+'BlBloodDef.mod': line  22--->define delay BlbD0 = {$PVM_BlbD0}
+'BlBloodDef.mod': line  23--->define delay BlbD1 = {$PVM_BlbD1}
+'BlBloodDef.mod': line  24--->define delay BlbD2 = {$PVM_BlbD2}
+'BlBloodDef.mod': line  25--->define delay BlbD3 = {$PVM_BlbD3}
+'BlBloodDef.mod': line  26--->
+'BlBloodDef.mod': line  27--->define pulse BlbP0 = {$PVM_BlbP0}
+'BlBloodDef.mod': line  28--->}
+'BlBloodDef.mod': line  29--->subroutine BlBlood
+'PrepModulesHead.mod': line  44--->
+'PrepModulesHead.mod': line  45--->
+'PrepModulesHead.mod': line  46--->;**** Trigger ****
+'TriggerDef.mod': line   1--->;****************************************************************
+'TriggerDef.mod': line   2--->;
+'TriggerDef.mod': line   3--->; Copyright (c) 1998-2003
+'TriggerDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'TriggerDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'TriggerDef.mod': line   6--->;
+'TriggerDef.mod': line   7--->; All Rights Reserved
+'TriggerDef.mod': line   8--->;
+'TriggerDef.mod': line   9--->; TriggerDef.mod - Trigger Module
+'TriggerDef.mod': line  10--->;
+'TriggerDef.mod': line  11--->;****************************************************************
+'TriggerDef.mod': line  12--->
+'TriggerDef.mod': line  13--->if (PVM_TriggerModule == On)
+'TriggerDef.mod': line  14--->{
+'TriggerDef.mod': line  15--->  define delay trigDur = {$PVM_TriggerDur}
+'TriggerDef.mod': line  16--->  define delay trigDel = {$PVM_TriggerDelay}
+'TriggerDef.mod': line  17--->
+'TriggerDef.mod': line  18--->  ; convert from ms to s
+'TriggerDef.mod': line  19--->  "trigDur = trigDur / 1000"
+'TriggerDef.mod': line  20--->  "trigDel = trigDel / 1000"
+'TriggerDef.mod': line  21--->}
+'TriggerDef.mod': line  22--->subroutine Trigger
+'TriggerDef.mod': line  23--->subroutine TriggerPhase
+'TriggerDef.mod': line  24--->subroutine TriggerSlice
+'PrepModulesHead.mod': line  48--->
+'PrepModulesHead.mod': line  49--->
+'PrepModulesHead.mod': line  50--->;**** Trigger Out ****
+'TriggerOutDef.mod': line   1--->;****************************************************************
+'TriggerOutDef.mod': line   2--->;
+'TriggerOutDef.mod': line   3--->; Copyright (c) 2003
+'TriggerOutDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'TriggerOutDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'TriggerOutDef.mod': line   6--->;
+'TriggerOutDef.mod': line   7--->; All Rights Reserved
+'TriggerOutDef.mod': line   8--->; $Id: TriggerOutDef.mod,v 1.2 2013/07/05 14:15:26 sako Exp $
+'TriggerOutDef.mod': line   9--->;****************************************************************
+'TriggerOutDef.mod': line  10--->
+'TriggerOutDef.mod': line  11--->if (PVM_TriggerOutOnOff == On)
+'TriggerOutDef.mod': line  12--->{
+'TriggerOutDef.mod': line  13--->  define delay trigOutDur = {$PVM_TriggerOutDur}
+'TriggerOutDef.mod': line  14--->  define delay trigOutDel = {$PVM_TriggerOutDelay}
+'TriggerOutDef.mod': line  15--->
+'TriggerOutDef.mod': line  16--->  ; convert from ms to s
+'TriggerOutDef.mod': line  17--->  "trigOutDur = trigOutDur / 1000"
+'TriggerOutDef.mod': line  18--->  "trigOutDel = trigOutDel / 1000"
+'TriggerOutDef.mod': line  19--->}
+'TriggerOutDef.mod': line  20--->subroutine TriggerOut
+'TriggerOutDef.mod': line  21--->subroutine TriggerOutStart
+'TriggerOutDef.mod': line  22--->subroutine TriggerOutSlice
+'TriggerOutDef.mod': line  23--->subroutine TriggerOutVolume
+'PrepModulesHead.mod': line  52--->
+'PrepModulesHead.mod': line  53--->
+'PrepModulesHead.mod': line  54--->;**** Outer Volume Suppression ****
+'WsOvsDef.mod': line   1--->;****************************************************************
+'WsOvsDef.mod': line   2--->;
+'WsOvsDef.mod': line   3--->; Copyright (c) 2005-2007
+'WsOvsDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'WsOvsDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'WsOvsDef.mod': line   6--->;
+'WsOvsDef.mod': line   7--->; $Id: WsOvsDef.mod,v 1.6 2013/07/08 08:33:32 josh Exp $
+'WsOvsDef.mod': line   8--->;
+'WsOvsDef.mod': line   9--->; All Rights Reserved
+'WsOvsDef.mod': line  10--->;
+'WsOvsDef.mod': line  11--->; WsOvsDef.mod: Declaration of water suppression and Outer 
+'WsOvsDef.mod': line  12--->;               volume suppression subroutines
+'WsOvsDef.mod': line  13--->;
+'WsOvsDef.mod': line  14--->; call 
+'WsOvsDef.mod': line  15--->; subr Ovs(ph0) ;  execution of OVS with ph0 phaselist
+'WsOvsDef.mod': line  16--->;
+'WsOvsDef.mod': line  17--->; subr WsOvs(ph0,ph1) : execution of OVS with ph0 and WS with ph1
+'WsOvsDef.mod': line  18--->;                       phaselist
+'WsOvsDef.mod': line  19--->;****************************************************************
+'WsOvsDef.mod': line  20--->
+'WsOvsDef.mod': line  21--->;**** OuterVolumeSuppression ****
+'WsOvsDef.mod': line  22--->
+'WsOvsDef.mod': line  23--->if(PVM_OvsOnOff == 1)
+'WsOvsDef.mod': line  24--->{
+'WsOvsDef.mod': line  25--->define list<frequency> Ovslist={$PVM_OvsFrequencyList}
+'WsOvsDef.mod': line  26--->define delay OvsD0 = {$PVM_OvsD0}
+'WsOvsDef.mod': line  27--->define delay OvsD1 = {$PVM_OvsD1}
+'WsOvsDef.mod': line  28--->define pulse OvsP0 = {$PVM_OvsP0}
+'WsOvsDef.mod': line  29--->}
+'WsOvsDef.mod': line  30--->subroutine Ovs
+'WsOvsDef.mod': line  59--->;*** WaterSuppression Module with OVS ****
+'WsOvsDef.mod': line  60--->
+'WsOvsDef.mod': line  61--->if (PVM_WsMode)
+'WsOvsDef.mod': line  62--->{
+'WsOvsDef.mod': line  63--->
+'WsOvsDef.mod': line  64--->define list<frequency> Wslist={$PVM_WsOffsetHz}
+'WsOvsDef.mod': line  65--->define pulse WsP0 = {$PVM_WsP0}
+'WsOvsDef.mod': line  66--->define pulse WsP1 = {$PVM_WsP1}
+'WsOvsDef.mod': line  67--->define pulse WsP2 = {$PVM_WsP2}
+'WsOvsDef.mod': line  68--->define delay WsNp0 
+'WsOvsDef.mod': line  69--->"WsNp0 = WsP0"
+'WsOvsDef.mod': line  70--->define delay WsNp1 
+'WsOvsDef.mod': line  71--->"WsNp1 = WsP1"
+'WsOvsDef.mod': line  72--->define delay WsNp2 
+'WsOvsDef.mod': line  73--->"WsNp2 = WsP2"
+'WsOvsDef.mod': line  74--->define list<delay> ChD1={$PVM_ChppgD1}
+'WsOvsDef.mod': line  75--->define list<delay> ChD2={$PVM_ChppgD2}
+'WsOvsDef.mod': line  76--->define list<delay> VpD1={$PVM_VpppgD1}
+'WsOvsDef.mod': line  77--->define list<delay> VpD2={$PVM_VpppgD2}
+'WsOvsDef.mod': line  79--->}
+'WsOvsDef.mod': line  80--->
+'WsOvsDef.mod': line  81--->
+'WsOvsDef.mod': line  82--->subroutine WsOvsMain
+'WsOvsDef.mod': line  83--->subroutine WsOvs
+'WsOvsDef.mod': line  84--->subroutine Ws
+'PrepModulesHead.mod': line  56--->
+'PrepModulesHead.mod': line  57--->
+'PrepModulesHead.mod': line  58--->;**** Solvent Suppression module ****
+'WsSatDef.mod': line   1--->;******************************************************************
+'WsSatDef.mod': line   2--->;
+'WsSatDef.mod': line   3--->; Copyright (c) 2002-2007
+'WsSatDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'WsSatDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'WsSatDef.mod': line   6--->;
+'WsSatDef.mod': line   7--->; $Id: WsSatDef.mod,v 1.11 2013/08/23 08:37:06 josh Exp $ 
+'WsSatDef.mod': line   8--->;
+'WsSatDef.mod': line   9--->; All Rights Reserved
+'WsSatDef.mod': line  10--->;
+'WsSatDef.mod': line  11--->; WsSatDef.mod - Declaration of water suppression and FOV saturation 
+'WsSatDef.mod': line  12--->;                subroutines
+'WsSatDef.mod': line  13--->; call
+'WsSatDef.mod': line  14--->; subr WsSat(ph0) : execution of WS with ph0 phaselist and 
+'WsSatDef.mod': line  15--->;                   FOV saturation (as passed as argument)    
+'WsSatDef.mod': line  16--->;      
+'WsSatDef.mod': line  17--->;*******************************************************************
+'WsSatDef.mod': line  18--->
+'WsSatDef.mod': line  19--->
+'WsSatDef.mod': line  20--->; Definitions for WsPpgParams are included in WsOvsDef.mod
+'WsSatDef.mod': line  21--->subroutine WsSatMain
+'WsSatDef.mod': line  22--->subroutine WsSat
+'PrepModulesHead.mod': line  60--->
+'PrepModulesHead.mod': line  61--->
+'PrepModulesHead.mod': line  62--->;**** Selective Inversion Recovery ****
+'SelSliceIrDef.mod': line   1--->;****************************************************************
+'SelSliceIrDef.mod': line   2--->;
+'SelSliceIrDef.mod': line   3--->; Copyright (c) 2007
+'SelSliceIrDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'SelSliceIrDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'SelSliceIrDef.mod': line   6--->;
+'SelSliceIrDef.mod': line   7--->; $Id: SelSliceIrDef.mod,v 1.5 2013/06/04 10:11:30 sako Exp $
+'SelSliceIrDef.mod': line   8--->;
+'SelSliceIrDef.mod': line   9--->; All Rights Reserved
+'SelSliceIrDef.mod': line  10--->;
+'SelSliceIrDef.mod': line  11--->; SelSliceIrDef.mod : declaration of slice Selective Inversion 
+'SelSliceIrDef.mod': line  12--->;                     Recovery subroutine
+'SelSliceIrDef.mod': line  13--->; call SliceSelIr()
+'SelSliceIrDef.mod': line  14--->; 
+'SelSliceIrDef.mod': line  15--->;
+'SelSliceIrDef.mod': line  16--->;****************************************************************
+'SelSliceIrDef.mod': line  17--->
+'SelSliceIrDef.mod': line  18--->
+'SelSliceIrDef.mod': line  19--->if(PVM_SelIrOnOff)
+'SelSliceIrDef.mod': line  20--->{
+'SelSliceIrDef.mod': line  21--->  define list<frequency> IrFL = {$PVM_SelIrFL} 
+'SelSliceIrDef.mod': line  22--->  define delay IrD0 = {$PVM_SelIrD0}
+'SelSliceIrDef.mod': line  23--->  define delay IrD1 = {$PVM_SelIrD1}
+'SelSliceIrDef.mod': line  24--->  define delay IrD2 = {$PVM_SelIrD2}
+'SelSliceIrDef.mod': line  25--->  define delay IrD3 = {$PVM_SelIrD3}
+'SelSliceIrDef.mod': line  26--->  define delay IrD4 = {$PVM_SelIrD4}
+'SelSliceIrDef.mod': line  28--->  define pulse IrP0 = {$PVM_SelIrP0}
+'SelSliceIrDef.mod': line  29--->  define loopcounter IrL0 = {$PVM_SelIrL0}
+'SelSliceIrDef.mod': line  30--->}
+'SelSliceIrDef.mod': line  31--->
+'SelSliceIrDef.mod': line  32--->subroutine SliceSelIr
+'SelSliceIrDef.mod': line  33--->
+'PrepModulesHead.mod': line  64--->
+'PrepModulesHead.mod': line  65--->
+'PrepModulesHead.mod': line  66--->;**** Tagging ****
+'TagDef.mod': line   1--->;****************************************************************
+'TagDef.mod': line   2--->;
+'TagDef.mod': line   3--->; Copyright (c) 2007
+'TagDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'TagDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'TagDef.mod': line   6--->;
+'TagDef.mod': line   7--->; $Id: TagDef.mod,v 1.6 2013/06/05 12:55:35 sako Exp $
+'TagDef.mod': line   8--->;
+'TagDef.mod': line   9--->; All Rights Reserved
+'TagDef.mod': line  10--->;
+'TagDef.mod': line  11--->; TagDef.mod : Declaration of tagging subroutine
+'TagDef.mod': line  12--->; call
+'TagDef.mod': line  13--->; subr Tagging()
+'TagDef.mod': line  14--->;
+'TagDef.mod': line  15--->;****************************************************************
+'TagDef.mod': line  16--->
+'TagDef.mod': line  17--->if(PVM_TaggingOnOff)
+'TagDef.mod': line  18--->{
+'TagDef.mod': line  19--->define list<frequency> taggfreq={$PVM_TaggingFL}
+'TagDef.mod': line  20--->
+'TagDef.mod': line  21--->define delay TaggD0 = {$PVM_TaggingD0}
+'TagDef.mod': line  22--->define delay TaggD1 = {$PVM_TaggingD1}
+'TagDef.mod': line  23--->define delay TaggD2 = {$PVM_TaggingD2}
+'TagDef.mod': line  24--->define delay TaggD3 = {$PVM_TaggingD3}
+'TagDef.mod': line  25--->define delay TaggD4 = {$PVM_TaggingD4}
+'TagDef.mod': line  26--->define delay TaggD5 = {$PVM_TaggingD5}
+'TagDef.mod': line  28--->define pulse TaggP0 = {$PVM_TaggingP0}
+'TagDef.mod': line  29--->define loopcounter TaggL0 = {$PVM_TaggingLp0}
+'TagDef.mod': line  30--->}
+'TagDef.mod': line  31--->
+'TagDef.mod': line  32--->subroutine Tagging
+'TagDef.mod': line  33--->
+'PrepModulesHead.mod': line  68--->
+'PrepModulesHead.mod': line  69--->
+'PrepModulesHead.mod': line  70--->;**** Noe ****
+'NoeDef.mod': line   1--->;****************************************************************
+'NoeDef.mod': line   2--->;
+'NoeDef.mod': line   3--->; Copyright (c) 2007
+'NoeDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'NoeDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'NoeDef.mod': line   6--->;
+'NoeDef.mod': line   7--->; $Id: NoeDef.mod,v 1.1 2007/07/02 14:26:00 mawi Exp $
+'NoeDef.mod': line   8--->;
+'NoeDef.mod': line   9--->; All Rights Reserved
+'NoeDef.mod': line  10--->;
+'NoeDef.mod': line  11--->; NoeDef.mod: Declaration of Nuclear Overhouser Enhancement 
+'NoeDef.mod': line  12--->;             subroutine
+'NoeDef.mod': line  13--->; call
+'NoeDef.mod': line  14--->; subr Noe()
+'NoeDef.mod': line  15--->;
+'NoeDef.mod': line  16--->;****************************************************************
+'NoeDef.mod': line  17--->
+'NoeDef.mod': line  18--->if(PVM_NoeOnOff == On)
+'NoeDef.mod': line  19--->{
+'NoeDef.mod': line  20--->define delay NoeD0 = {$PVM_NoeD0}
+'NoeDef.mod': line  21--->define delay NoeD1 = {$PVM_NoeD1}
+'NoeDef.mod': line  22--->}
+'NoeDef.mod': line  23--->
+'NoeDef.mod': line  24--->subroutine Noe
+'PrepModulesHead.mod': line  72--->
+'PrepModulesHead.mod': line  73--->
+'PrepModulesHead.mod': line  74--->;**** Evolution ****
+'EvolutionDef.mod': line   1--->;****************************************************************
+'EvolutionDef.mod': line   2--->;
+'EvolutionDef.mod': line   3--->; Copyright (c) 1998-2003
+'EvolutionDef.mod': line   4--->; Bruker BioSpin MRI GmbH
+'EvolutionDef.mod': line   5--->; D-76275 Ettlingen, Germany
+'EvolutionDef.mod': line   6--->;
+'EvolutionDef.mod': line   7--->; All Rights Reserved
+'EvolutionDef.mod': line   8--->;
+'EvolutionDef.mod': line   9--->; EvolutionDef.mod - Evolution Module
+'EvolutionDef.mod': line  10--->;
+'EvolutionDef.mod': line  11--->;****************************************************************
+'EvolutionDef.mod': line  12--->
+'EvolutionDef.mod': line  13--->if (PVM_EvolutionOnOff == On)
+'EvolutionDef.mod': line  14--->{
+'EvolutionDef.mod': line  15--->  define delay       evolDel  = {$PVM_EvolutionDelay}
+'EvolutionDef.mod': line  16--->  define list<delay> evolTime = {$PVM_EvolutionTime}
+'EvolutionDef.mod': line  17--->}
+'EvolutionDef.mod': line  18--->
+'EvolutionDef.mod': line  19--->subroutine Evolution
+'PrepModulesHead.mod': line  76--->
+'PrepModulesHead.mod': line  77--->
+'RARE.ppg': line  30, macro line 0--->dccorr                                             
+'RARE.ppg': line  30, macro line 1--->                           
+'RARE.ppg': line  30, macro line 2---> if (CONFIG_preemp_type == GREAT_60)               
+'RARE.ppg': line  30, macro line 3---> {                                                 
+'RARE.ppg': line  30, macro line 4---> if (CONFIG_instrument_type != Avance_III)      
+'RARE.ppg': line  30, macro line 5---> {                                              
+'RARE.ppg': line  30, macro line 6---> 500m setnmr0|34|33|32                          
+'RARE.ppg': line  30, macro line 7---> }                                              
+
+Begin of PTList: lalign
+{
+    dur2 == line 702
+    fixdel(1.500000 usec) SYNCRCU 
+    
+    dur3 == line 702
+    fixdel(4.500000 usec) ADCGO RCU 1 ADCGO_DC channel 1: SY receive phase(65,0) PHADDO PHREF 
+    phase(65,8) receive 
+}
+
+
+{
+    dur4 == line 702
+    de 
+    
+    dur5 == line 702
+    fixdel(1000.000000 usec) setNmr1: 0x2100 
+    
+    dur6 == line 702
+    fixdel(500.000000 usec) clrNmr1: 0x2100  EVENT-EOSZ eos1 
+}
+End of PTList
+
+'RARE.ppg': line  30, macro line 8---> else                                           
+'RARE.ppg': line  30, macro line 9---> {                                              
+'RARE.ppg': line  31---> 200u setnmr0|34|33|32 'RARE.ppg': line  32--->                         
+'RARE.ppg': line  43---> }                                              
+'RARE.ppg': line  44---> }                                                 
+'RARE.ppg': line  45---> if (CONFIG_preemp_type == DPP_with_SW_Blanking)   
+'RARE.ppg': line  46---> {
+'RARE.ppg': line  47---> 10u ctrlgrad 0  
+'FlowSatDef.mod': line  63---> 10u grad{(0)|(0)|(0) }	  
+'FlowSatDef.mod': line  64---> 200u setnmr0|34|33|32     
+'FlowSatDef.mod': line  65---> }
+'FlowSatDef.mod': line  66---> if (CONFIG_preemp_type == DPP)  
+'FlowSatDef.mod': line  67---> {    
+'FlowSatDef.mod': line  68---> 10u groff 
+'FlowSatDef.mod': line  69---> }
+'FlowSatDef.mod': line  70--->
+'FlowSatDef.mod': line  71--->
+'RARE.ppg': line  45--->grad_zero_for_gs <ACQ_spatial_phase_1, ACQ_spatial_phase_2>
+'RARE.ppg': line  46--->
+'RARE.ppg': line  47--->subr FlowSatInit
+dur7 == line 710
+fixdel(10.000000 usec) Gradient statement # 0, type = 0x100 NEXTGRAD 
+
+'RARE.ppg': line  48--->;EXEC_begin FlowSatInit FlowSatInit()
+'RARE.ppg': line  51---> 
+dur8 == line 732
+fixdel(2.500000 usec) Gradient statement # 1, type = 0x500 loop to 'RARE.ppg': line  48 times l1 
+
+'RARE.ppg': line  52--->if(PVM_InFlowSatOnOff == 1)
+'RARE.ppg': line  53--->   {
+dur9 == line 735
+fixdel(1.000000 usec) phase(0,8) receive 
+
+'RARE.ppg': line  54--->
+dur10 == line 737
+fixdel(1.000000 usec) Gradient statement # 1, type = 0x600 
+
+'RARE.ppg': line  55--->        40u     modlis4.res
+'RARE.ppg': line  56--->        10u     flowSatGrad.res
+'RARE.ppg': line  57--->   }
+'RARE.ppg': line  58---> 
+'RARE.ppg': line  59--->;EXEC_end   FlowSatInit
+'RARE.ppg': line  61--->
+'RARE.ppg': line  62--->;pre-setting the ACQ_spatial_phase_1 counter for the dummy scans:
+'RARE.ppg': line  63--->decr,   ACQ_spatial_phase_1.dec
+'RARE.ppg': line  64--->        lo to decr times l1	;DS*ACQ_rare_factor
+'RARE.ppg': line  66--->        1u      recph ph0
+'RARE.ppg': line  67--->
+'RARE.ppg': line  68--->start,  1u	ACQ_spatial_phase_1.store
+'RARE.ppg': line  69--->acc,    9u
+'RARE.ppg': line  70--->
+'RARE.ppg': line  71--->if(PVM_BlBloodOnOff == On)
+'RARE.ppg': line  72--->{
+'RARE.ppg': line  73--->subr TriggerPhase
+'RARE.ppg': line  74--->;EXEC_begin TriggerPhase TriggerPhase()
+'RARE.ppg': line  76---> 
+'RARE.ppg': line  77--->  if (PVM_TriggerMode == per_PhaseStep)
+'RARE.ppg': line  78--->  {
+'RARE.ppg': line  79--->;EXEC_begin Trigger Trigger()
+'RARE.ppg': line  81---> 
+'RARE.ppg': line  82--->  if (PVM_TriggerModule == On)
+'RARE.ppg': line  83--->  {
+'RARE.ppg': line  84--->    trigDur     
+'RARE.ppg': line  85--->  
+'RARE.ppg': line  86--->    if (CONFIG_instrument_type == Avance_III)
+'RARE.ppg': line  87--->    {
+'RARE.ppg': line  88--->      trigDur   trignl1
+'RARE.ppg': line  89--->      trigDur   trigpe3
+'RARE.ppg': line  90--->    }
+'RARE.ppg': line  91--->    else
+'RARE.ppg': line  92--->    {
+'RARE.ppg': line  93--->      trigDur
+'RARE.ppg': line  94--->      trigDur   trigpl1
+'BlBloodDef.mod': line  38--->    }
+'BlBloodDef.mod': line  39--->  
+'BlBloodDef.mod': line  40--->    trigDur      
+'BlBloodDef.mod': line  41--->    trigDel
+'BlBloodDef.mod': line  42--->  }
+'BlBloodDef.mod': line  43---> 
+'BlBloodDef.mod': line  44--->;EXEC_end   Trigger
+'BlBloodDef.mod': line  45--->  }
+'BlBloodDef.mod': line  46---> 
+'BlBloodDef.mod': line  47--->;EXEC_end   TriggerPhase
+'BlBloodDef.mod': line  49--->}
+'BlBloodDef.mod': line  50--->subr BlBlood
+'BlBloodDef.mod': line  51--->;EXEC_begin BlBlood BlBlood(phase ph0)
+'BlBloodDef.mod': line  53---> 
+'BlBloodDef.mod': line  54---> if(PVM_BlBloodOnOff) 
+'BlBloodDef.mod': line  55--->   {
+'BlBloodDef.mod': line  56--->        10u     modlis8:f1 
+'BlBloodDef.mod': line  57--->        10u
+'RARE.ppg': line  60--->        BlbD3	gatepulse 1
+'RARE.ppg': line  61--->        (BlbP0:sp46  ph0):f1
+'RARE.ppg': line  62--->        BlbD2     modlis8.inc grad_ramp{0, 0, PVM_BlbGrad}
+'TriggerDef.mod': line  53--->        10u
+'TriggerDef.mod': line  54--->        10u       modlis8:f1
+'TriggerDef.mod': line  55--->        10u 
+'TriggerDef.mod': line  56--->        BlbD3     gatepulse 1
+'TriggerDef.mod': line  57--->        (BlbP0:sp46  ph0):f1
+'TriggerDef.mod': line  31--->        BlbD2     grad_off
+'TriggerDef.mod': line  32--->        BlbD1     modlis8.inc grad_ramp{0, 0, PVM_BlBloodSpoilAmp}
+'TriggerDef.mod': line  33--->        BlbD0     grad_off
+'TriggerDef.mod': line  34--->   }
+'TriggerDef.mod': line  35--->  
+'TriggerDef.mod': line  36--->;EXEC_end   BlBlood
+'TriggerDef.mod': line  38--->subr TriggerPhase
+'TriggerDef.mod': line  39--->;EXEC_begin TriggerPhase TriggerPhase()
+'TriggerDef.mod': line  41---> 
+'TriggerDef.mod': line  42--->  if (PVM_TriggerMode == per_PhaseStep)
+'TriggerDef.mod': line  43--->  {
+'TriggerDef.mod': line  44--->;EXEC_begin Trigger Trigger()
+'TriggerDef.mod': line  46---> 
+'TriggerDef.mod': line  47--->  if (PVM_TriggerModule == On)
+'TriggerDef.mod': line  48--->  {
+'TriggerDef.mod': line  49--->    trigDur     
+'TriggerDef.mod': line  50--->  
+'TriggerDef.mod': line  51--->    if (CONFIG_instrument_type == Avance_III)
+'TriggerDef.mod': line  52--->    {
+'TriggerDef.mod': line  53--->      trigDur   trignl1
+'TriggerDef.mod': line  54--->      trigDur   trigpe3
+'TriggerDef.mod': line  55--->    }
+'RARE.ppg': line  61--->    else
+'RARE.ppg': line  62--->    {
+'RARE.ppg': line  63--->      trigDur
+'SelSliceIrDef.mod': line  40--->      trigDur   trigpl1
+'SelSliceIrDef.mod': line  41--->    }
+'SelSliceIrDef.mod': line  42--->  
+'SelSliceIrDef.mod': line  43--->    trigDur      
+'SelSliceIrDef.mod': line  44--->    trigDel
+'SelSliceIrDef.mod': line  45--->  }
+'SelSliceIrDef.mod': line  46---> 
+'SelSliceIrDef.mod': line  47--->;EXEC_end   Trigger
+'SelSliceIrDef.mod': line  48--->  }
+'SelSliceIrDef.mod': line  49---> 
+'SelSliceIrDef.mod': line  50--->;EXEC_end   TriggerPhase
+'SelSliceIrDef.mod': line  52--->subr SliceSelIr
+'SelSliceIrDef.mod': line  53--->;EXEC_begin SliceSelIr SliceSelIr()
+'SelSliceIrDef.mod': line  55---> 
+'SelSliceIrDef.mod': line  56--->  if(PVM_SelIrOnOff == On)
+'SelSliceIrDef.mod': line  57--->  {
+'RARE.ppg': line  62--->    50u      IrFL.res
+'RARE.ppg': line  63--->    irloop19,  10u IrFL :f1
+dur11 == line 738
+fixdel(9.000000 usec) 
+
+'RARE.ppg': line  64--->    IrD4     grad_ramp{0, 0, PVM_SelIrGradAmp*100}
+dur12 == line 854
+fixdel(10.000000 usec) channel 1: set O8 via ptr 0 
+
+'RARE.ppg': line  65--->    IrD3     gatepulse 1
+'RARE.ppg': line  67--->    (IrP0:sp42  ph0):f1
+'RARE.ppg': line  68--->    IrD4     grad_off
+'RARE.ppg': line  69--->    IrD0     grad_matrix.inc IrFL.inc
+'RARE.ppg': line  70--->    lo to irloop19 times IrL0
+'TriggerDef.mod': line  61--->    IrD2     grad_ramp{0, 0, PVM_SelIrSpoilAmp}
+'TriggerDef.mod': line  62--->    IrD4     grad_off IrFL.res
+'TriggerDef.mod': line  63--->    IrD1     grad_matrix.res
+'TriggerDef.mod': line  64--->  }
+'TriggerDef.mod': line  65---> 
+'TriggerDef.mod': line  66--->;EXEC_end   SliceSelIr
+'TriggerDef.mod': line  68--->	
+'TriggerDef.mod': line  69--->slice,  10u	fq8(receive):f1
+'TriggerDef.mod': line  70--->	20u     reload B0
+'TriggerDef.mod': line  72--->;----------------------------------preparation modules -------------
+'TriggerDef.mod': line  73--->subr TriggerSlice
+'TriggerDef.mod': line  74--->;EXEC_begin TriggerSlice TriggerSlice()
+'TriggerDef.mod': line  76---> 
+'TriggerDef.mod': line  77--->  if (PVM_TriggerMode == per_Slice)
+'TriggerDef.mod': line  78--->  {
+'TriggerDef.mod': line  79--->;EXEC_begin Trigger Trigger()
+'TriggerDef.mod': line  81---> 
+'TriggerDef.mod': line  82--->  if (PVM_TriggerModule == On)
+'TriggerDef.mod': line  83--->  {
+'TriggerDef.mod': line  84--->    trigDur     
+'TriggerDef.mod': line  85--->  
+'TriggerDef.mod': line  86--->    if (CONFIG_instrument_type == Avance_III)
+'TriggerDef.mod': line  87--->    {
+'TriggerDef.mod': line  88--->      trigDur   trignl1
+'TriggerDef.mod': line  89--->      trigDur   trigpe3
+'TriggerDef.mod': line  90--->    }
+'RARE.ppg': line  68--->    else
+'RARE.ppg': line  69--->    {
+'RARE.ppg': line  70--->      trigDur
+'FlowSatDef.mod': line  40--->      trigDur   trigpl1
+'FlowSatDef.mod': line  41--->    }
+'FlowSatDef.mod': line  42--->  
+'FlowSatDef.mod': line  43--->    trigDur      
+'FlowSatDef.mod': line  44--->    trigDel
+'FlowSatDef.mod': line  45--->  }
+'FlowSatDef.mod': line  46---> 
+'FlowSatDef.mod': line  47--->;EXEC_end   Trigger
+'FlowSatDef.mod': line  48--->  }
+'FlowSatDef.mod': line  49---> 
+'FlowSatDef.mod': line  50--->;EXEC_end   TriggerSlice
+'FlowSatDef.mod': line  52--->subr FlowSat
+'RARE.ppg': line  69--->;EXEC_begin FlowSat FlowSat()
+'RARE.ppg': line  71---> 
+'TagDef.mod': line  40--->if(PVM_InFlowSatOnOff == 1)
+'TagDef.mod': line  41--->{
+'TagDef.mod': line  42--->
+'TagDef.mod': line  43--->flow120,  SfD0   	modlis4:f1   	grad_ramp{0, 0, flowSatGrad*100}
+'TagDef.mod': line  44--->        SfD1    gatepulse 1
+'TagDef.mod': line  45--->        (SfP0:sp44):f1
+'TagDef.mod': line  46--->        SfD2            	grad_ramp{0, 0, PVM_InFlowSatSpoilGrad}
+'TagDef.mod': line  47--->        SfD0	        	grad_off
+'TagDef.mod': line  48--->}
+'TagDef.mod': line  49--->  
+'TagDef.mod': line  50--->;EXEC_end   FlowSat
+'TagDef.mod': line  52--->subr Tagging
+'TagDef.mod': line  53--->;EXEC_begin Tagging Tagging()
+'TagDef.mod': line  55---> 
+'TagDef.mod': line  56--->
+'TagDef.mod': line  57--->if(PVM_TaggingOnOff)
+'TagDef.mod': line  58--->{
+'TagDef.mod': line  59--->1u    taggfreq.res
+'TagDef.mod': line  60--->if(PVM_TaggingMode == DANTE)
+'TagDef.mod': line  61--->{
+'TagDef.mod': line  62--->      10u taggfreq:f1  
+'TagDef.mod': line  63--->      TaggD4 grad_ramp{PVM_TaggingGradAmp1, PVM_TaggingGradAmp2,0}
+'TagDef.mod': line  64--->      TaggD5 gatepulse 1
+'TagDef.mod': line  65--->      (TaggP0:sp45):f1
+'TagDef.mod': line  66--->tag121,TaggD2
+'TagDef.mod': line  67--->      (TaggP0:sp45):f1
+'TagDef.mod': line  68--->      lo to tag121 times TaggL0
+'TagDef.mod': line  69--->      TaggD4 grad_off
+'TagDef.mod': line  70--->if(PVM_TaggingDir == Tagging_grid)
+'TagDef.mod': line  71--->    {
+'TagDef.mod': line  72--->      TaggD1
+'TagDef.mod': line  73--->      taggfreq.inc
+'TagDef.mod': line  74--->      10u taggfreq:f1
+'TagDef.mod': line  75--->      TaggD4 grad_ramp{PVM_TaggingGradAmp3,PVM_TaggingGradAmp4,0} 
+'TagDef.mod': line  76--->      (TaggP0:sp45):f1
+'TagDef.mod': line  77--->tag222,TaggD2
+'TagDef.mod': line  78--->          (TaggP0:sp45):f1
+'TagDef.mod': line  79--->          lo to tag222 times TaggL0
+'TagDef.mod': line  80--->      TaggD4 grad_off
+'TagDef.mod': line  81--->      }
+'TagDef.mod': line  82--->}
+'TagDef.mod': line  83--->if(PVM_TaggingMode == SPAMM)
+'TagDef.mod': line  84--->{
+'TagDef.mod': line  85--->      10u taggfreq:f1
+'TagDef.mod': line  86--->      TaggD5 gatepulse 1
+'TagDef.mod': line  87--->      (TaggP0:sp45):f1
+'TagDef.mod': line  88--->tag323,TaggD2 grad_ramp{PVM_TaggingGradAmp1,PVM_TaggingGradAmp2,0}
+'TagDef.mod': line  89--->           TaggD4 grad_off
+'TagDef.mod': line  90--->           (TaggP0:sp45):f1
+'TagDef.mod': line  91--->           lo to tag323 times TaggL0
+'TagDef.mod': line  92--->if(PVM_TaggingDir == Tagging_grid)
+'TagDef.mod': line  93--->    {
+'TagDef.mod': line  94--->      taggfreq.inc
+'TagDef.mod': line  95--->      10u taggfreq:f1
+'TagDef.mod': line  96--->      (TaggP0:sp45):f1
+'RARE.ppg': line  70--->tag424,TaggD2 grad_ramp{PVM_TaggingGradAmp3,PVM_TaggingGradAmp4,0}
+'RARE.ppg': line  71--->           TaggD4 grad_off
+'RARE.ppg': line  72--->           (TaggP0:sp45):f1
+'FovSatDef.mod': line  42--->           lo to tag424 times TaggL0
+'FovSatDef.mod': line  43--->      }
+'FovSatDef.mod': line  44--->}
+'FovSatDef.mod': line  45--->      10u
+'FovSatDef.mod': line  46--->      TaggD3 grad_ramp{PVM_TaggingSpoilAmp,0,0}
+'FovSatDef.mod': line  47--->      TaggD4 grad_off
+'FovSatDef.mod': line  48--->      TaggD0
+'FovSatDef.mod': line  49--->}    
+'FovSatDef.mod': line  50--->
+'FovSatDef.mod': line  51---> 
+'FovSatDef.mod': line  52--->;EXEC_end   Tagging
+'FovSatDef.mod': line  54--->subr FovSat
+'FovSatDef.mod': line  55--->;EXEC_begin FovSat FovSat()
+'FovSatDef.mod': line  57---> 
+'FovSatDef.mod': line  58--->  if (PVM_FovSatOnOff == On)
+'FovSatDef.mod': line  59--->  {
+'FovSatDef.mod': line  60--->         PVM_FovSatGrad.res
+'RARE.ppg': line  71--->         fovSatList.res
+'RARE.ppg': line  72--->
+'RARE.ppg': line  73--->    fov25, fovSatRamp   grad_ramp<object_coord>{PVM_FovSatGrad[]}
+'MagTransDef.mod': line  41--->         fovSatAmp    fovSatList:f1 gatepulse 1
+'MagTransDef.mod': line  42--->         (fovSatPul    :sp41):f1
+'MagTransDef.mod': line  43--->         fovSatSpoil  fovSatList.inc  grad_ramp{0, 0, PVM_FovSatSpoilAmp}
+'MagTransDef.mod': line  44--->         PVM_FovSatGrad.inc        
+'MagTransDef.mod': line  45--->    lo to fov25 times PVM_FovSatNSlices
+'MagTransDef.mod': line  46--->         
+'MagTransDef.mod': line  47--->         fovSatRamp   grad_off
+'MagTransDef.mod': line  48--->         fovSatGrad
+'MagTransDef.mod': line  49--->  }
+'MagTransDef.mod': line  50---> 
+'MagTransDef.mod': line  51--->;EXEC_end   FovSat
+'MagTransDef.mod': line  53--->subr MagTrans
+'MagTransDef.mod': line  54--->;EXEC_begin MagTrans MagTrans()
+'MagTransDef.mod': line  56---> 
+'MagTransDef.mod': line  57--->
+'RARE.ppg': line  72--->  if(PVM_MagTransOnOff)
+'RARE.ppg': line  73--->  {
+'RARE.ppg': line  74---> 
+'FatSupDef.mod': line  40--->      50u  modlis3.res
+'FatSupDef.mod': line  41--->      MtD1 
+'FatSupDef.mod': line  42--->mtc26,MtD2 modlis3:f1 gatepulse 1
+'FatSupDef.mod': line  43--->      MtP0:sp43:f1 
+'FatSupDef.mod': line  44--->      lo to mtc26 times MtLp0
+'FatSupDef.mod': line  45--->      MtD3  		grad_ramp{0, 0, PVM_MagTransSpoiler}
+'FatSupDef.mod': line  46--->      MtD0       	groff
+'FatSupDef.mod': line  47--->      100u
+'FatSupDef.mod': line  48--->  }
+'FatSupDef.mod': line  49---> 
+'FatSupDef.mod': line  50--->;EXEC_end   MagTrans
+'RARE.ppg': line  73--->subr FatSup
+'RARE.ppg': line  74--->;EXEC_begin FatSup FatSup()
+'RARE.ppg': line  76---> 
+dur13 == line 855
+fixdel(20.000000 usec) Gradient statement # 2, type = 0xd00 NEXTGRAD 
+
+'RARE.ppg': line  77--->  if (PVM_FatSupPerform == Yes)
+dur14 == line 1027
+d9 Gradient statement # 0, type = 0x200 NEXTGRAD 
+
+'RARE.ppg': line  78--->  {
+dur15 == line 1028
+d3 channel 1: set O1 via ptr 0 Gradient statement # 1, type = 0x200 NEXTGRAD 
+
+'RARE.ppg': line  79--->    fatSupAmp       fatSupList:f1 gatepulse 1
+dur16 == line 1029
+d8 setNmr1: 0x800000 
+
+'RARE.ppg': line  80--->    (fatSupPul       :sp40):f1
+'RARE.ppg': line  82--->    fatSupSpoil     grad_shape {0, 0, PVM_FatSupSpoilAmp}
+
+Begin of PTList: lalign
+{
+    dur17 == line 1030
+    p0 Shape Pulse SP0:f1 channel 1: shape pulse 0 via ptr -1 phase(0,0) 
+}
+End of PTList
+
+'RARE.ppg': line  83--->    fatSupRamp      grad_off
+dur18 == line 1032
+d2 Gradient statement # 2, type = 0x200 NEXTGRAD 
+
+'RARE.ppg': line  84--->    fatSupGrad
+'RARE.ppg': line  85--->  }
+'RARE.ppg': line  86---> 
+'RARE.ppg': line  87--->;EXEC_end   FatSup
+dur19 == line 1033
+d1 Gradient statement # 3, type = 0x200 NEXTGRAD 
+
+'RARE.ppg': line  89--->
+dur20 == line 1038
+fixdel(0.000000 usec) Gradient statement # 1, type = 0x700 
+
+'RARE.ppg': line  90--->;---------------------------------- excitation ---------------------
+'RARE.ppg': line  91--->
+dur21 == line 1039
+d3 setNmr1: 0x800000 Gradient statement # 4, type = 0x200 NEXTGRAD 
+
+'RARE.ppg': line  92--->        d9	grad_ramp{g1, 0, g1}           ;TR spoiler
+'RARE.ppg': line  93--->	d3 	grad_ramp{0, 0, g0} fq1:f1     ;slice on
+
+Begin of PTList: lalign
+{
+    dur22 == line 1041
+    p1 Shape Pulse SP1:f1 channel 1: shape pulse 1 via ptr -1 phase(1,0) 
+}
+End of PTList
+
+'RARE.ppg': line  94--->        d8	gatepulse 1
+dur23 == line 1043
+d5 Gradient statement # 5, type = 0x200 NEXTGRAD 
+
+'RARE.ppg': line  95--->	(p0:sp0 ph0):f1                        ;exc pulse
+dur24 == line 1044
+d6 Gradient statement # 6, type = 0x200 NEXTGRAD 
+
+'RARE.ppg': line  97--->        d2      grad_ramp{g2, 0, g7}            ;read deph 
+dur25 == line 1046
+denab Gradient statement # 7, type = 0x200 NEXTGRAD 
+
+'RARE.ppg': line  98, macro line 0--->	d1 	grad_off                       ;TE-fill 1
+dur26 == line 1047
+rdepa SYNCRCU 
+
+'RARE.ppg': line  98, macro line 1--->
+dur27 == line 1048
+deparx ADCGO RCU 1 channel 1: SY receive 
+
+'RARE.ppg': line  98, macro line 2--->
+dur28 == line 1049
+derxadc phase(1,0) PHADDO PHREF 
+
+'RARE.ppg': line  98, macro line 3--->;---------------------------------- refocusing  ---------------------
+dur29 == line 1050
+deadc 
+
+'RARE.ppg': line 100--->echo1,  0u	ACQ_spatial_phase_1.restore		    
+dur30 == line 1051
+aqq channel 1: CPDSNG prog 16 (CPDPRG17)via ptr 0 
+
+'RARE.ppg': line 101--->echo,	d3      grad_ramp{0, 0, g0} gatepulse 1  ;slice on
+dur31 == line 1053
+d6 Gradient statement # 8, type = 0x200 NEXTGRAD 
+
+'RARE.ppg': line 102--->
+dur32 == line 1054
+d5m40u Gradient statement # 9, type = 0x200 NEXTGRAD 
+
+'RARE.ppg': line 103--->        (p1:sp1 ph1):f1                          ;pi-pulse
+dur33 == line 1055
+fixdel(1.000000 usec) Gradient statement # 1, type = 0x400 SYNCRCU 
+
+'RARE.ppg': line 104--->
+'RARE.ppg': line 105--->        d5      grad_ramp{g8,  ACQ_spatial_phase_1*g4, g3-ACQ_spatial_phase_2*g6} ;enc+slice-reph
+'RARE.ppg': line 106--->        d6      grad_off                         ;TE-fill 2a
+dur34 == line 1056
+fixdel(39.000000 usec) channel 1: Dwell off channel 1: SY transmit  EVENT-EOSZ eos1 
+ AQBUS-WR RCU 1 wrif 0 loop to 'RARE.ppg': line  90 times 8 
+
+'RARE.ppg': line 111--->	denab   grad_ramp{g5, 0, 0}              ;read-on + acq
+'RARE.ppg': line 112--->        rdepa						 
+'RARE.ppg': line 113---> deparx     adc   syrec fqatofqb:f1 
+'RARE.ppg': line 114---> derxadc     ph1:r  			 
+'RARE.ppg': line 115---> deadc        
+'RARE.ppg': line 116--->	aqq	cpdngs17:f1
+'RARE.ppg': line 117--->
+'RARE.ppg': line 118--->        d6      grad_off                         ;TE-fill 2b
+'RARE.ppg': line 119--->        d5m40u  grad_ramp{g8, -ACQ_spatial_phase_1*g4, g3+ACQ_spatial_phase_2*g6} ;enc+slice-reph2
+'RARE.ppg': line 120--->	1u	ACQ_spatial_phase_1.inc
+'RARE.ppg': line 121--->	39u     eoscnp
+'RARE.ppg': line 122--->
+'RARE.ppg': line 123--->lo to echo  times NECHOES/PVM_NEchoImages 
+dur35 == line 1059
+fixdel(0.000000 usec) loop to 'RARE.ppg': line  89 times 1 
+
+'RARE.ppg': line 124--->lo to echo1 times PVM_NEchoImages
+dur36 == line 1073
+d3 Gradient statement # 10, type = 0x200 NEXTGRAD 
+
+'RARE.ppg': line 126--->;--------------------------------- flipback ------------------------
+dur37 == line 1075
+fixdel(2.500000 usec) Gradient statement # 0, type = 0x400 
+
+'RARE.ppg': line 127--->
+'RARE.ppg': line 128--->if( PVM_FlipBackOnOff == On)
+'RARE.ppg': line 129--->{
+'FlowSatDef.mod': line  56--->
+'FlowSatDef.mod': line  57--->	d3      grad_ramp{0, 0, g0} gatepulse 1   ;slice on
+'FlowSatDef.mod': line  58--->        (p1:sp1 	ph1):f1                   ;pi-pulse
+'FlowSatDef.mod': line  59--->	d1 	grad_off   
+'FlowSatDef.mod': line  60--->        d2      grad_ramp{g2, 0, 0}                ;read-dephase
+'FlowSatDef.mod': line  61--->	d3      grad_ramp{0, 0, g0} gatepulse 1   ;slice on
+'FlowSatDef.mod': line  62--->	(p0:sp0 	ph3):f1                   ;flipback
+'FlowSatDef.mod': line  63--->}	
+'FlowSatDef.mod': line  64--->	d3 	grad_off
+'FlowSatDef.mod': line  65--->;----------------------------------slice loop-----------------------
+'RARE.ppg': line 127--->	grad_matrix.inc
+'RARE.ppg': line 128--->	d0
+dur38 == line 1076
+d0 loop to 'RARE.ppg': line  64 times 1 
+
+'RARE.ppg': line 129--->subr FlowSatInc
+dur39 == line 1091
+d10 
+
+'RARE.ppg': line 130--->;EXEC_begin FlowSatInc FlowSatInc()
+dur40 == line 1092
+fixdel(1.500000 usec) 
+inc phase (0) 
+
+dur41 == line 1093
+fixdel(1.000000 usec) phase(0,8) receive 
+
+'RARE.ppg': line 132---> 
+'RARE.ppg': line 133--->if(PVM_InFlowSatOnOff == 1)
+'RARE.ppg': line 134--->{
+dur42 == line 1094
+fixdel(2.500000 usec) 
+inc phase (3) loop to 'RARE.ppg': line  55 times 1 
+
+'RARE.ppg': line 135--->
+dur43 == line 1097
+fixdel(1.500000 usec) 
+reset phase (0) 
+
+'RARE.ppg': line 136--->         5u 	modlis4.inc 
+dur44 == line 1098
+fixdel(1.000000 usec) phase(0,8) receive 
+
+'RARE.ppg': line 137--->          
+'RARE.ppg': line 138--->}
+'RARE.ppg': line 139---> 
+'RARE.ppg': line 140--->;EXEC_end   FlowSatInc
+dur45 == line 1099
+fixdel(2.500000 usec) 
+reset phase (3) 
+
+'RARE.ppg': line 142--->	lo to slice times NSLICES
+'RARE.ppg': line 144--->	d10    
+dur46 == line 1104
+fixdel(0.000000 usec) goto 'RARE.ppg': line  54 
+
+'RARE.ppg': line 145--->	1.5u	ipp0
+'RARE.ppg': line 146--->        1u      recph ph0
+'RARE.ppg': line 147--->	2.5u	ipp3
+'RARE.ppg': line 148--->;----------------------------------averaging loop-------------------
+'RARE.ppg': line 149--->	lo to acc times NA
+'RARE.ppg': line 150--->	1.5u	rpp0
+'RARE.ppg': line 151--->        1u      recph ph0
+'RARE.ppg': line 152--->	2.5u	rpp3
+dur47 == line 1106
+fixdel(0.000000 usec) loop to 'RARE.ppg': line  54 times l2 
+
+'RARE.ppg': line 153--->;----------------------------------2d loop--------------------------
+'RARE.ppg': line 154--->if( ACQ_dim >= 2 )
+dur48 == line 1114
+fixdel(5.000000 usec) loop to 'RARE.ppg': line  54 times 1 
+
+'RARE.ppg': line 155--->{
+'RARE.ppg': line 156--->	"lc1 = lc1 - 1"		; this makes
+'RARE.ppg': line 157--->	if "lc1>=0" goto start	; dummy scans 
+'EvolutionDef.mod': line  31--->	lo to start times l2	;ACQ_size[1]/ACQ_rare_factor
+'EvolutionDef.mod': line  32--->}
+'EvolutionDef.mod': line  33--->;----------------------------------3d loop--------------------------
+'EvolutionDef.mod': line  34--->if( ACQ_dim >= 3 )
+'EvolutionDef.mod': line  35--->{
+'EvolutionDef.mod': line  36--->	ACQ_spatial_phase_2.inc
+'EvolutionDef.mod': line  37--->	lo to start times ACQ_size[2]
+'EvolutionDef.mod': line  38--->}
+'EvolutionDef.mod': line  39--->        5u
+'EvolutionDef.mod': line  40--->        lo to start times NAE
+'EvolutionDef.mod': line  41--->        5u
+'EvolutionDef.mod': line  42--->subr Evolution
+'EvolutionDef.mod': line  43--->;EXEC_begin Evolution Evolution()
+'EvolutionDef.mod': line  45---> 
+'RARE.ppg': line 155--->  if (PVM_EvolutionOnOff == On)
+dur49 == line 1116
+fixdel(5.000000 usec) 
+
+'RARE.ppg': line 156--->  {
+'RARE.ppg': line 157--->    if (PVM_EvolutionMode == Variable_Delay)
+'RARE.ppg': line 158, macro line 0--->    {
+'RARE.ppg': line 158, macro line 1--->      evolTime
+'RARE.ppg': line 159--->      evolTime.inc
+dur50 == line 1136
+fixdel(5.000000 usec) loop to 'RARE.ppg': line  54 times 1 
+
+'RARE.ppg': line 160--->    }
+'RARE.ppg': line 161--->    else
+dur51 == line 1141
+fixdel(50000.000000 usec) 
+
+dur52 == line 1141
+fixdel(10000.000000 usec)  EVENT-EOSZ esc0 
+
+dur53 == line 1141
+fixdel(10000.000000 usec) 
+
+
+phase program no. 65:
+Fraction:  4.000000 
+Increment:  0x4000 =  90.00 degrees
+  0:             0 =   0.00 degrees
+
+phase program no. 0: PHAUINC
+Fraction:  4.000000 
+Increment:  0x4000 =  90.00 degrees
+  0:             0 =   0.00 degrees
+  1:        0x8000 = 180.00 degrees
+
+phase program no. 3: PHAUINC
+Fraction:  4.000000 
+Increment:  0x4000 =  90.00 degrees
+  0:        0x8000 = 180.00 degrees
+  1:             0 =   0.00 degrees
+
+phase program no. 1:
+Fraction:  4.000000 
+Increment:  0x4000 =  90.00 degrees
+  0:        0x4000 =  90.00 degrees
+file list:
+=================================================
+          filename              actlineno  offset
+=================================================
+               RARE.ppg        1            1
+            MRI.include       16           16
+            Avance.incl       30           30
+            Avance.incl       38         -131
+            MRI.include       40           27
+            MRI.include       47           27
+            MRI.include       57           27
+            MRI.include       61           18
+            MRI.include       65            1
+            MRI.include       70           -3
+            MRI.include       74          -53
+            MRI.include       75          -53
+            MRI.include       79          -61
+               RARE.ppg       83           69
+               RARE.ppg       89           69
+    PrepModulesHead.mod       96           96
+          FatSupDef.mod      116          116
+          FatSupDef.mod      130          116
+    PrepModulesHead.mod      149          130
+         FlowSatDef.mod      153          153
+    PrepModulesHead.mod      186          163
+        InvPulseDef.mod      190          190
+    PrepModulesHead.mod      231          204
+        MagTransDef.mod      235          235
+    PrepModulesHead.mod      269          238
+        SatPulseDef.mod      273          273
+    PrepModulesHead.mod      343          308
+          FovSatDef.mod      347          347
+          FovSatDef.mod      383          331
+    PrepModulesHead.mod      388          349
+         BlBloodDef.mod      392          392
+    PrepModulesHead.mod      422          379
+         TriggerDef.mod      426          426
+    PrepModulesHead.mod      451          404
+      TriggerOutDef.mod      455          455
+    PrepModulesHead.mod      479          428
+           WsOvsDef.mod      483          483
+           WsOvsDef.mod      514          456
+    PrepModulesHead.mod      541          486
+           WsSatDef.mod      545          545
+    PrepModulesHead.mod      568          509
+      SelSliceIrDef.mod      572          572
+    PrepModulesHead.mod      606          543
+             TagDef.mod      610          610
+    PrepModulesHead.mod      644          577
+             NoeDef.mod      648          648
+    PrepModulesHead.mod      673          602
+       EvolutionDef.mod      677          677
+    PrepModulesHead.mod      697          622
+               RARE.ppg      700          673
+               RARE.ppg      701          672
+         macro-RARE.ppg      702          672
+               RARE.ppg      712          681
+               RARE.ppg      714          671
+         FlowSatDef.mod      719          656
+               RARE.ppg      729          684
+               RARE.ppg      734          683
+         BlBloodDef.mod      778          740
+               RARE.ppg      798          738
+         TriggerDef.mod      801          748
+         TriggerDef.mod      806          775
+               RARE.ppg      831          770
+      SelSliceIrDef.mod      834          794
+               RARE.ppg      852          790
+               RARE.ppg      856          789
+         TriggerDef.mod      860          799
+               RARE.ppg      890          822
+         FlowSatDef.mod      893          853
+               RARE.ppg      906          837
+             TagDef.mod      909          869
+               RARE.ppg      966          896
+          FovSatDef.mod      969          927
+               RARE.ppg      988          917
+        MagTransDef.mod      991          950
+               RARE.ppg     1008          936
+          FatSupDef.mod     1011          971
+               RARE.ppg     1023          950
+               RARE.ppg     1031          949
+               RARE.ppg     1037          949
+               RARE.ppg     1045          949
+         macro-RARE.ppg     1047          949
+               RARE.ppg     1051          952
+               RARE.ppg     1060          949
+         FlowSatDef.mod     1079         1023
+               RARE.ppg     1089          962
+               RARE.ppg     1105          961
+       EvolutionDef.mod     1119         1089
+               RARE.ppg     1135          980
+         macro-RARE.ppg     1138          980
+               RARE.ppg     1140          981

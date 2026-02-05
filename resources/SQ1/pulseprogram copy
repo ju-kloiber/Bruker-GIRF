@@ -1,0 +1,81 @@
+
+start,  1u	ACQ_spatial_phase_1.store
+acc,    9u
+
+# 54 "/opt/PV6.0.1/exp/stan/nmr/lists/pp/RARE.ppg"
+	
+slice,  10u	fq8(receive):f1
+	20u     reload B0
+
+;---------------------------------- excitation ---------------------
+
+  d9	grad_ramp{g1, 0, g1}           
+	d3 	grad_ramp{0, 0, g0} fq1:f1    
+  d8	gatepulse 1
+	(p0:sp0 ph0):f1                        
+  d2  grad_ramp{g2, 0, g7}           
+	d1 	grad_off                       
+
+;---------------------------------- refocusing  ---------------------
+# 80 "/opt/PV6.0.1/exp/stan/nmr/lists/pp/RARE.ppg"
+echo1,  0u	ACQ_spatial_phase_1.restore		    
+echo,	d3      grad_ramp{0, 0, g0} gatepulse 1  
+
+        (p1:sp1 ph1):f1                         
+
+  d5      grad_ramp{g8,  ACQ_spatial_phase_1*g4, g3-ACQ_spatial_phase_2*g6} 
+  d6      grad_off                        
+	denab   grad_ramp{g5, 0, 0}              ;read-on + acq
+  rdepa						 \n deparx     adc   syrec fqatofqb:f1 \n derxadc     ph1:r  			 \n deadc        
+	aqq	cpdngs17:f1
+
+  d6      grad_off                         ;TE-fill 2b
+  d5m40u  grad_ramp{g8, -ACQ_spatial_phase_1*g4, g3+ACQ_spatial_phase_2*g6} 
+	1u	ACQ_spatial_phase_1.inc
+	39u     eoscnp
+
+lo to echo  times NECHOES/PVM_NEchoImages 
+lo to echo1 times PVM_NEchoImages
+
+
+
+	d3 	grad_off
+;----------------------------------slice loop-----------------------
+	grad_matrix.inc
+	d0
+
+# 116 "/opt/PV6.0.1/exp/stan/nmr/lists/pp/RARE.ppg"
+	lo to slice times NSLICES
+	d10    
+	1.5u	ipp0
+        1u      recph ph0
+	2.5u	ipp3
+;----------------------------------averaging loop-------------------
+	lo to acc times NA
+	1.5u	rpp0
+        1u      recph ph0
+	2.5u	rpp3
+;----------------------------------2d loop--------------------------
+if( ACQ_dim >= 2 )
+{
+	"lc1 = lc1 - 1"		; this makes
+	if "lc1>=0" goto start	; dummy scans 
+# 133 "/opt/PV6.0.1/exp/stan/nmr/lists/pp/RARE.ppg"
+	lo to start times l2	;ACQ_size[1]/ACQ_rare_factor
+}
+;----------------------------------3d loop--------------------------
+if( ACQ_dim >= 3 )
+{
+	ACQ_spatial_phase_2.inc
+	lo to start times ACQ_size[2]
+}
+        5u
+        lo to start times NAE
+        5u
+
+# 144 "/opt/PV6.0.1/exp/stan/nmr/lists/pp/RARE.ppg"
+        5u
+        lo to start times NR
+if (ACQ_scan_type != Scan_Experiment) \n{ \n goto start \n}
+
+exit

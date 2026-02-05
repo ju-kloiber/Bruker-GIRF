@@ -1,0 +1,14 @@
+name = "BrukerGIRF"
+uuid = "cc175d5a-4526-4f71-85ee-aa3d80bdf570"
+version = "0.1.0"
+
+[deps]
+DSP = "717857b8-e6f2-59f4-9121-6e50c889abd2"
+DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
+Dierckx = "39dd38d3-220a-591b-8e3c-4c3a8c710a94"
+FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
+GLMakie = "e9467ef8-e4e7-5192-8a1a-b1aee30e663a"
+MAT = "23992714-dd62-5051-b70f-ba57cb901cac"
+
+[compat]
+Dierckx = "0.5.4"
