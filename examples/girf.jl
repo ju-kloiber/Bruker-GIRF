@@ -31,14 +31,14 @@ dict_girf["α"] = 1/4     # roll-off factor
 
 ### COMPUTATIONS ###
 # load measured B and k from files
-G, t_meas       = load_G(dict_girf)  # B from files seems to be processed already
-k_meas, t_meas  = load_k(dict_girf)
+G, t_meas       = load_G(dict_girf)     # B from files seems to be processed already
+k_meas, t_meas  = load_k(dict_girf)     # size: num_timepoints x 3 x num_amps
 
 # compute measured gradient waveforms from k-space data
 G_comp, t_meas = compute_G(k_meas, t_meas, dict_girf)
 
 # construct nominal gradient waveforms
-G_nom, t_nom = construct_nominal_G(t_meas, dict_girf)
+G_nom, t_nom = construct_nominal_G(t_meas, dict_girf)   # size: num_timepoints x 3 x num_amps
 
 # compute GIRF
 girfF, girfT, freqs, t = compute_girf(G_nom, G_comp, t_meas)
