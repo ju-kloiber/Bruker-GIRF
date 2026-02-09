@@ -2,6 +2,18 @@ using DelimitedFiles
 using DSP
 using Dierckx
 
+"""
+    load_gradient_events(folder::String, params::Dict{String,Any})
+
+Parses the pulseprogram file in the specified folder to extract gradient events.
+
+# Arguments
+- `folder::String`: Path to the folder containing the pulseprogram file.
+- `params::Dict{String,Any}`: Dictionary of parameters used for evaluating delays.
+
+# Returns
+- `events_parsed::Vector{Tuple{Float64, String}}`: A vector of tuples where each tuple contains a delay in milliseconds and the corresponding command string.
+"""
 function load_gradient_events(folder::String, params::Dict{String,Any})
 
     # empty array for delay - command pairs
@@ -253,6 +265,18 @@ function load_gradient_events(folder::String, params::Dict{String,Any})
     return events_parsed
 end
 
+"""
+    load_list(folder::String, label::String)
+
+Loads a list of values from the acqp file in the specified folder.
+
+# Arguments
+- `folder::String`: Path to the folder containing the acqp file.
+- `label::String`: The label of the list to load.
+
+# Returns
+- `list::Vector{Float32}`: A vector of Float32 values corresponding to the specified label.
+"""
 function load_list(folder::String, label::String)
 
     file = joinpath(folder, "acqp")
@@ -263,11 +287,23 @@ function load_list(folder::String, label::String)
     idx = findall(x -> isa(x, AbstractString) && occursin("\$$(label)=", x), data)[1]
     N = data[idx + 1]
 
-    delays = Float32.(data[idx + 3:idx+N+2])
+    list = Float32.(data[idx + 3:idx+N+2])
 
-    return delays
+    return list
 end
 
+"""
+    load_gradient_file(filename::String)
+
+Loads gradient labels and scaling factors from a gradient file.
+
+# Arguments
+- `filename::String`: Path to the gradient file.
+
+# Returns
+- `labels::Vector{String}`: A vector of gradient labels.
+- `scales::Vector{Float64}`: A vector of scaling factors corresponding to the labels.
+"""
 function load_gradient_file(filename::String)
     labels = String[]
     scales = Float64[]
@@ -291,6 +327,19 @@ function load_gradient_file(filename::String)
     return labels, scales
 end
 
+"""
+    load_parameter(folder::String, label::String, T=Float64)
+
+Loads a single parameter from the acqp file in the specified folder.
+
+# Arguments
+- `folder::String`: Path to the folder containing the acqp file.
+- `label::String`: The label of the parameter to load.
+- `T`: The type to which the parameter should be converted (default: Float64).
+
+# Returns
+- `N::T`: The value of the specified parameter converted to type T.
+"""
 function load_parameter(folder::String, label::String, T=Float64)
 
     file = joinpath(folder, "acqp")
@@ -307,6 +356,20 @@ function load_parameter(folder::String, label::String, T=Float64)
 end
 
 
+"""
+    eval_gradient_component(s::AbstractString, g, acq_spatial_phase_1, acq_spatial_phase_2)
+
+Evaluates a gradient component expression string by substituting gradient labels and spatial phase increments.
+
+# Arguments
+- `s::AbstractString`: The gradient component expression string.
+- `g`: The gradient amplitude array.
+- `acq_spatial_phase_1`: The spatial phase increment array for the first dimension.
+- `acq_spatial_phase_2`: The spatial phase increment array for the second dimension.
+
+# Returns
+- The evaluated gradient component value.
+"""
 function eval_gradient_component(s::AbstractString, g, acq_spatial_phase_1, acq_spatial_phase_2)
     
     # Replace gN with g[N+1]
@@ -324,6 +387,18 @@ function eval_gradient_component(s::AbstractString, g, acq_spatial_phase_1, acq_
 end
 
 
+"""
+    eval_if_condition(line::AbstractString, params::Dict{String,Any})
+
+Evaluates a simple if condition from the pulseprogram file.
+
+# Arguments
+- `line::AbstractString`: The line containing the if condition.
+- `params::Dict{String,Any}`: Dictionary of parameters used for evaluating the condition.
+
+# Returns
+- `Bool`: The result of the evaluated condition.
+"""
 function eval_if_condition(line::AbstractString, params::Dict{String,Any})
     # Match: if (PARAM OP VALUE)
     m = match(r"if\s*\(\s*(\w+)\s*(==|!=|<=|>=|<|>)\s*([0-9]+(?:\.[0-9]+)?)\s*\)", line)
@@ -403,6 +478,18 @@ function linearize_loops_old(events_parsed, params)
     return linear
 end
 
+"""
+    linearize_loops(events_parsed, params)
+
+Expands loops in the parsed gradient events into a linear sequence of events.
+
+# Arguments
+- `events_parsed::Vector{Tuple{Float64, String}}`: A vector of tuples where each tuple contains a delay in milliseconds and the corresponding command string.
+- `params::Dict{String,Any}`: Dictionary of parameters used for evaluating loop counts.
+
+# Returns
+- `linear::Vector{Tuple{Float64, String}}`: A linearized vector of tuples with loops expanded.
+"""
 function linearize_loops(events_parsed, params)
 
     # initialize linear event list and loop stack
@@ -451,6 +538,17 @@ function linearize_loops(events_parsed, params)
     return linear
 end
 
+"""
+    load_pvm_params(folder::String)
+
+Loads PVM parameters from the method file in the specified folder.
+
+# Arguments
+- `folder::String`: Path to the folder containing the method file.
+
+# Returns
+- `params::Dict{String,Any}`: A dictionary containing the loaded PVM parameters.
+"""
 function load_pvm_params(folder::String)
 
     file = joinpath(folder, "method")
@@ -519,6 +617,18 @@ function load_pvm_params(folder::String)
     return params
 end
 
+
+"""
+    parse_pvm_scalar(value::AbstractString)
+
+Parses a scalar PVM parameter value from a string.
+
+# Arguments
+- `value::AbstractString`: The string representation of the scalar value.
+
+# Returns
+- The parsed value, which can be a Bool, Int, Float64, or String.
+"""
 function parse_pvm_scalar(value::AbstractString)
     value == "On"  && return true
     value == "Off" && return false
@@ -529,6 +639,17 @@ function parse_pvm_scalar(value::AbstractString)
     return value
 end
 
+"""
+    parse_pvm_array(tokens::AbstractArray{<:AbstractString})
+
+Parses an array of PVM parameter values from a list of string tokens.
+
+# Arguments
+- `tokens::AbstractArray{<:AbstractString}`: An array of string tokens representing the values.
+
+# Returns
+- `out::Vector{Any}`: A vector containing the parsed values, which can be of mixed types (Int, Float64, String).
+"""
 function parse_pvm_array(tokens::AbstractArray{<:AbstractString})
     out = Any[]
 
@@ -551,6 +672,26 @@ is_single_line_if(line::AbstractString) = occursin(r"^\s*if\b", line) && occursi
 
 is_block_if(line::AbstractString) = occursin(r"^\s*if\s*\(", line) && !occursin("goto", line)
 
+
+"""
+    compute_gradients(linear::AbstractArray, g::AbstractArray, tDwell::AbstractFloat, RampTime::AbstractFloat, ACQ_spatial_phase_1::AbstractArray, ACQ_spatial_phase_2::AbstractArray)
+
+Computes gradient waveforms from a linearized sequence of gradient events.
+
+# Arguments
+- `linear::AbstractArray`: A linearized array of gradient events (tuples of delay and command).
+- `g::AbstractArray`: An array of gradient amplitudes.
+- `tDwell::AbstractFloat`: The dwell time in milliseconds.
+- `RampTime::AbstractFloat`: The ramp time in milliseconds.
+- `ACQ_spatial_phase_1::AbstractArray`: The spatial phase increment array for the first dimension.
+- `ACQ_spatial_phase_2::AbstractArray`: The spatial phase increment array for the second dimension. 
+
+# Returns
+- `t::Vector{Float64}`: A vector of time points.
+- `Gx::Vector{Float64}`: A vector of gradient amplitudes in the x-direction.
+- `Gy::Vector{Float64}`: A vector of gradient amplitudes in the y-direction.
+- `Gz::Vector{Float64}`: A vector of gradient amplitudes in the z-direction.
+"""
 function compute_gradients(linear::AbstractArray, g::AbstractArray, tDwell::AbstractFloat, RampTime::AbstractFloat, ACQ_spatial_phase_1::AbstractArray, ACQ_spatial_phase_2::AbstractArray)
 
     # define arrays for time and gradients
@@ -716,6 +857,21 @@ function compute_gradients(linear::AbstractArray, g::AbstractArray, tDwell::Abst
     return t, [Gx Gy Gz]
 end
 
+"""
+    load_gradients(folder::String, tDwell::AbstractFloat, RampTime::AbstractFloat)
+
+Loads gradient waveforms from the specified folder.
+
+# Arguments
+- `folder::String`: Path to the folder containing the gradient files.
+- `tDwell::AbstractFloat`: The dwell time in milliseconds.
+- `RampTime::AbstractFloat`: The ramp time in milliseconds.
+
+# Returns
+- `t::Vector{Float64}`: A vector of time points.
+- `G::Matrix{Float64}`: A matrix of gradient amplitudes (columns correspond to x, y, z).
+- `params::Dict{String,Any}`: A dictionary containing the loaded PVM parameters.
+"""
 function load_gradients(folder::String, tDwell::AbstractFloat, RampTime::AbstractFloat)
 
     # load the PVM parameters from the method file
@@ -770,5 +926,5 @@ function load_gradients(folder::String, tDwell::AbstractFloat, RampTime::Abstrac
     # compute the gradients from the linearized events
     t, G = compute_gradients(linear, g, tDwell, RampTime, ACQ_spatial_phase_1, ACQ_spatial_phase_2)
 
-    return t, G, params
+    return G, t
 end

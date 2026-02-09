@@ -2,7 +2,23 @@ using DelimitedFiles
 using FFTW
 using DSP
 
-# this function loads the B field data from the specified files
+"""
+    load_G(params::Dict{String, Any})
+
+Loads the B field data from the specified files in the parameters dictionary.
+
+# Arguments
+- `params::Dict{String, Any}`: A dictionary containing the following keys:
+    - `"nPoints"`: Number of points in each measurement (from Bruker header)
+    - `"files"`: List of measurement files
+    - `"experiment"`: Name of the experiment (used to construct file paths)
+    - `"folder"`: Name of the folder in /resources where the files are located
+    - `"tDwell"`: Dwell time of data acquisition in ms
+
+# Returns
+- `B::Array{Float64, 3}`: A 3D array containing the B field data with dimensions (nPoints, 3, num_files)
+- `t::Vector{Float64}`: A vector containing the time points corresponding to the B field data
+"""
 function load_G(params::Dict{String, Any})
 
     # unpack some parameters
@@ -51,6 +67,23 @@ function load_G(params::Dict{String, Any})
 end
 
 # this function loads the k-space data from the specified files
+"""
+    load_k(params::Dict{String, Any})
+
+Loads the k-space data from the specified files in the parameters dictionary.
+
+# Arguments
+- `params::Dict{String, Any}`: A dictionary containing the following keys:
+    - `"nPoints"`: Number of points in each measurement (from Bruker header)
+    - `"files"`: List of measurement files
+    - `"experiment"`: Name of the experiment (used to construct file paths)
+    - `"folder"`: Name of the folder in /resources where the files are located
+    - `"tDwell"`: Dwell time of data acquisition in ms
+
+# Returns
+- `k::Array{Float64, 3}`: A 3D array containing the k-space data with dimensions (nPoints, 3, num_files)
+- `t::Vector{Float64}`: A vector containing the time points corresponding to the k-space data
+"""
 function load_k(params::Dict{String, Any})
 
     # unpack some parameters
@@ -95,6 +128,21 @@ function load_k(params::Dict{String, Any})
     return k, t
 end
 
+"""
+    compute_G(k_meas::Array{Float64, 3}, t_meas::Vector{Float64}, params::Dict{String, Any})
+
+Computes the gradient waveforms from the measured k-space data by differentiation.
+
+# Arguments
+- `k_meas::Array{Float64, 3}`: A 3D array containing the measured k-space data with dimensions (nPoints, 3, num_files)
+- `t_meas::Vector{Float64}`: A vector containing the time points corresponding to the k-space data
+- `params::Dict{String, Any}`: A dictionary containing the following key:
+    - `"gamma"`: Gyromagnetic ratio in MHz/T
+
+# Returns
+- `G_comp::Array{Float64, 3}`: A 3D array containing the computed gradient waveforms with dimensions (nPoints-1, 3, num_files)
+- `t_meas::Vector{Float64}`: A vector containing the time points corresponding to the computed gradient waveforms (adjusted for differentiation)
+"""
 function compute_G(k_meas::Array{Float64, 3}, t_meas::Vector{Float64}, params::Dict{String, Any})
 
     # unpack parameters
@@ -109,6 +157,23 @@ function compute_G(k_meas::Array{Float64, 3}, t_meas::Vector{Float64}, params::D
     return G_comp, t_meas
 end
 
+"""
+    construct_nominal_G(t_meas::Vector{Float64}, params::Dict{String, Any})
+
+Constructs the nominal gradient waveforms based on the specified parameters. The nominal waveforms are assumed to be triangular pulses with durations determined by the gradient amplitudes and the maximum slew rate.
+
+# Arguments
+- `t_meas::Vector{Float64}`: A vector containing the time points corresponding to the measured data
+- `params::Dict{String, Any}`: A dictionary containing the following keys:
+    - `"nPoints"`: Number of points in each measurement (from Bruker header)
+    - `"p"`: Maximum slew rate in mT/m/ms
+    - `"files"`: List of measurement files
+    - `"amps"`: Corresponding gradient amplitudes in mT/m
+
+# Returns
+- `G_nom::Array{Float64, 3}`: A 3D array containing the nominal gradient waveforms with dimensions (nPoints-1, 3, num_files)
+- `t_nom::Vector{Float64}`: A vector containing the time points corresponding to the nominal gradient waveforms
+"""
 function construct_nominal_G(t_meas::Vector{Float64}, params::Dict{String, Any})
 
     # unpack parameters
@@ -132,7 +197,19 @@ function construct_nominal_G(t_meas::Vector{Float64}, params::Dict{String, Any})
     return G_nom, t_meas
 end
 
-# this function generates a triangular gradient waveform with the specified duration and amplitude
+"""
+    triangle(t::AbstractArray, pulse_dur::AbstractFloat, amplitude::AbstractFloat)
+
+Generates a triangular gradient waveform.
+
+# Arguments
+- `t::AbstractArray`: Time vector
+- `pulse_dur::AbstractFloat`: Duration of the triangular pulse (time to peak)
+- `amplitude::AbstractFloat`: Peak amplitude of the triangular pulse
+
+# Returns
+- `G_nom::AbstractArray`: The generated triangular gradient waveform
+"""
 function triangle(t::AbstractArray, pulse_dur::AbstractFloat, amplitude::AbstractFloat)
 
     G_nom = zeros(length(t))
@@ -147,7 +224,22 @@ function triangle(t::AbstractArray, pulse_dur::AbstractFloat, amplitude::Abstrac
     return G_nom
 end
 
-# this function computes the GIRF from nominal and measured gradient waveforms
+"""
+    compute_girf(Gnom::AbstractArray, Gmeas::AbstractArray, t::AbstractArray)
+
+Computes the Gradient Impulse Response Function (GIRF) in both frequency and time domains using least squares estimation.
+
+# Arguments
+- `Gnom::AbstractArray`: A 3D array containing the nominal gradient waveforms with dimensions (nPoints, 3, num_files)
+- `Gmeas::AbstractArray`: A 3D array containing the measured gradient waveforms with dimensions (nPoints, 3, num_files)
+- `t::AbstractArray`: A vector containing the time points corresponding to the gradient waveforms
+
+# Returns
+- `girf_f::AbstractArray`: A 3D array containing the GIRF in the frequency domain with dimensions (nPoints, 3, 3)
+- `girf_t::AbstractArray`: A 3D array containing the GIRF in the time domain with dimensions (nPoints, 3, 3)
+- `freq::Vector{Float64}`: A vector containing the frequency points corresponding to the GIRF
+- `t::Vector{Float64}`: A vector containing the time points corresponding to the GIRF
+"""
 function compute_girf(Gnom::AbstractArray, Gmeas::AbstractArray, t::AbstractArray)
 
     freq, _, _ = time2freq(t)
@@ -191,7 +283,19 @@ function compute_girf(Gnom::AbstractArray, Gmeas::AbstractArray, t::AbstractArra
    return girf_f, girf_t, freq, t
 end
 
-# this function converts a time vector to a frequency vector
+"""
+    time2freq(t::Vector{T}) where T<:AbstractFloat
+
+Converts a time vector to its corresponding frequency vector using FFT conventions.
+
+# Arguments
+- `t::Vector{T}`: A vector of time points
+
+# Returns
+- `f::Vector{T}`: A vector of frequency points corresponding to the input time vector
+- `df::T`: Frequency resolution (Hz per bin)
+- `f_max::T`: Maximum frequency (Nyquist frequency)
+"""
 function time2freq(t::Vector{T}) where T<:AbstractFloat
     nrs = length(t)         # Number of time samples
     dt = t[2] - t[1]        # Time step (assumed uniform)
@@ -205,6 +309,22 @@ function time2freq(t::Vector{T}) where T<:AbstractFloat
 end
 
 
+"""
+    apply_girf(G_raw::AbstractArray, t_raw::AbstractArray, girfT::AbstractArray, t_girf::AbstractArray, method=:direct)
+
+Applies the Gradient Impulse Response Function (GIRF) to the raw gradient waveforms to obtain corrected gradients. The application can be done using either direct convolution or FFT-based multiplication.
+
+# Arguments
+- `G_raw::AbstractArray`: A 3D array containing the raw gradient waveforms
+- `t_raw::AbstractArray`: A vector containing the time points corresponding to the raw gradient waveforms
+- `girfT::AbstractArray`: A 3D array containing the GIRF in
+- `t_girf::AbstractArray`: A vector containing the time points corresponding to the GIRF
+- `method::Symbol`: Method for applying the GIRF, either `:direct` for direct convolution or `:fft` for FFT-based multiplication (default is `:direct`)
+
+# Returns
+- `G_corr::AbstractArray`: A 3D array containing the corrected gradient waveforms
+- `t_corr::AbstractArray`: A vector containing the time points corresponding to the corrected gradient waveforms
+"""
 function apply_girf(G_raw::AbstractArray, t_raw::AbstractArray, girfT::AbstractArray, t_girf::AbstractArray, method=:direct)
 
 
@@ -216,6 +336,12 @@ function apply_girf(G_raw::AbstractArray, t_raw::AbstractArray, girfT::AbstractA
     # check if interpolation needed
     Δt_raw = t_raw[2] - t_raw[1]
     Δt_girf = t_girf[2] - t_girf[1]
+
+    # check if fft is allowed
+    if method == :fft && Δt_raw != Δt_girf
+        @warn "FFT-based GIRF application requires matching time resolutions. Switching to direct convolution."
+        method = :direct
+    end
 
     # check if time resolutions match, abs tol 0.5 μs
     if !isapprox(Δt_raw, Δt_girf; atol=5e-4)
@@ -240,10 +366,13 @@ function apply_girf(G_raw::AbstractArray, t_raw::AbstractArray, girfT::AbstractA
 
     if method == :direct
 
+        shift = floor(Int, size(girfT, 1) / 2) # amount to shift for convolution to be centered
+
         # loop over waveforms and input channels to apply inverse GIRF
         for iWaveform in 1:nWaveforms
             for iIn in 1:nIn
-                G_corr[:, iIn, iWaveform] .= conv(girfT[:, iIn, iIn], G_raw[:, iIn, iWaveform], algorithm=:direct)[1:nS]
+                conv_result = conv(girfT[:, iIn, iIn], G_raw[:, iIn, iWaveform], algorithm=:direct)
+                G_corr[:, iIn, iWaveform] .= Δt_raw / Δt_girf *conv_result[shift:shift+nS-1]#[shift:shift+nS-1]
             end
         end
         
@@ -264,10 +393,23 @@ function apply_girf(G_raw::AbstractArray, t_raw::AbstractArray, girfT::AbstractA
         error("Unknown correction method: $method")
     end
 
-    return real.(G_corr)
+    return real.(G_corr), t_raw
 end
 
-# this function constructs a raised cosine filter
+"""
+    raised_cosine(f::Vector{S}, params::Dict{String,Any}) where {S<:Real}
+
+Constructs a raised cosine filter based on the specified bandwidth and roll-off factor.
+
+# Arguments
+- `f::Vector{S}`: A vector of frequency points
+- `params::Dict{String,Any}`: A dictionary containing the following keys:
+    - `"BW"`: Bandwidth in kHz
+    - `"α"`: Roll-off factor
+
+# Returns
+- `filter::Vector{S}`: A vector containing the raised cosine filter values at the specified frequency points
+"""
 function raised_cosine(f::Vector{S}, params::Dict{String,Any}) where {S<:Real}
     
     # unpack parameters
